@@ -56,3 +56,18 @@ public class GreetingResource {
                 .build();
     }
 ```
+
+## Prerequisites
+
+## Java
+
+1. Java is installed
+2. Maven is installed
+
+## AWS 
+
+Same installation as [aws-cdk-plain](https://github.com/AdamBien/aws-cdk-plain):
+
+0. For max convenience use the [`default` profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+1. Install [AWS CDK CLI](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
+2. [`cdk boostrap --profile YOUR_AWS_PROFILE`](https://docs.aws.amazon.com/cdk/latest/guide/bootstrapping.html)
