@@ -61,8 +61,8 @@ public class GreetingResource {
 
 ## Java
 
-1. Java is installed
-2. Maven is installed
+1. Java / openJDK is installed
+2. [Maven](https://maven.apache.org/) is installed
 
 ## AWS 
 
@@ -75,6 +75,8 @@ Same installation as [aws-cdk-plain](https://github.com/AdamBien/aws-cdk-plain):
 See you at: [airhacks.live](https://airhacks.live)
 
 # in action
+
+## Deploying MicroProfile / Quarkus Application as AWS Lambda with Java AWS CDK
 
 [![Deploying MicroProfile / Quarkus Application as AWS Lambda with Java AWS CDK](https://i.ytimg.com/vi/NA0WjIgp4CQ/mqdefault.jpg)](https://www.youtube.com/embed/NA0WjIgp4CQ?rel=0)
 
