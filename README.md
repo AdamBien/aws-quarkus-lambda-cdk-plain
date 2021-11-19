@@ -28,6 +28,14 @@ public class GreetingResource {
     }
 }
 ```
+...with an additional dependency / [extension](https://quarkus.io/guides/amazon-lambda-http):
+
+```xml
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-amazon-lambda-rest</artifactId>
+</dependency>
+```
 
 ...deployed with AWS Cloud Development Kit:
 
