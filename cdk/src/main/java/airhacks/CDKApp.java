@@ -10,9 +10,9 @@ public class CDKApp {
     public static void main(final String[] args) {
 
             var app = new App();
-            var appName = "cdk";
-            Tags.of(app).add("project", "airhacks.live");
-            Tags.of(app).add("environment","workshops");
+            var appName = "quarkus-api-gateway-lambda-cdk";
+            Tags.of(app).add("project", "MicroProfile with Quarkus on AWS Lambda");
+            Tags.of(app).add("environment","development");
             Tags.of(app).add("application", appName);
 
             var stackProps = StackProps.builder()
