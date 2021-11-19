@@ -71,3 +71,11 @@ Same installation as [aws-cdk-plain](https://github.com/AdamBien/aws-cdk-plain):
 0. For max convenience use the [`default` profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
 1. Install [AWS CDK CLI](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
 2. [`cdk boostrap --profile YOUR_AWS_PROFILE`](https://docs.aws.amazon.com/cdk/latest/guide/bootstrapping.html)
+
+See you at: [airhacks.live](https://airhacks.live)
+
+# in action
+
+[![Deploying MicroProfile / Quarkus Application as AWS Lambda with Java AWS CDK](https://i.ytimg.com/vi/NA0WjIgp4CQ/mqdefault.jpg)](https://www.youtube.com/embed/NA0WjIgp4CQ?rel=0)
+
+See you at: [airhacks.live](https://airhacks.live)
