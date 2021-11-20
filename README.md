@@ -1,6 +1,6 @@
 # MicroProfile with Quarkus as AWS Lambda Function deployed with Cloud Development Kit (CDK)
 
-A lean starting point for building, testing and deploying Quarkus MicroProfile applications deployed as AWS Lambda behind an AWS API Gateway.
+A lean starting point for building, testing and deploying Quarkus MicroProfile applications deployed as AWS Lambda.
 
 # TL;DR
 
@@ -68,7 +68,7 @@ public class GreetingResource {
 
 Same installation as [aws-cdk-plain](https://github.com/AdamBien/aws-cdk-plain):
 
-0. For max convenience use the [`default` profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+0. For max convenience use the [`default` profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html). A profile named `default` doesn't have to be specificed with the `--profile` flag or configured in CDK applications.
 1. Install [AWS CDK CLI](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
 2. [`cdk boostrap --profile YOUR_AWS_PROFILE`](https://docs.aws.amazon.com/cdk/latest/guide/bootstrapping.html)
 
