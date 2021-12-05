@@ -80,4 +80,9 @@ See you at: [airhacks.live](https://airhacks.live)
 
 [![Deploying MicroProfile / Quarkus Application as AWS Lambda with Java AWS CDK](https://i.ytimg.com/vi/NA0WjIgp4CQ/mqdefault.jpg)](https://www.youtube.com/embed/NA0WjIgp4CQ?rel=0)
 
+
+## Accelarating deployments with CDK v2 Watch
+
+[![Accelerating Deployment with CDK v2 Watch](https://i.ytimg.com/vi/SK7ic9wTYqU/mqdefault.jpg)](https://www.youtube.com/embed/SK7ic9wTYqU?rel=0)
+
 See you at: [airhacks.live](https://airhacks.live)
