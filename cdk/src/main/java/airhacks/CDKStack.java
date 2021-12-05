@@ -25,7 +25,7 @@ public class CDKStack extends Stack {
     public CDKStack(final Construct scope, final String id, final StackProps props) {
         super(scope, id, props);
         
-        var function = createUserListenerFunction(functionName, lambdaHandler, configuration, memory, maxConcurrency, timeout);
+        var function = createFunction(functionName, lambdaHandler, configuration, memory, maxConcurrency, timeout);
         var apiGateway = LambdaRestApi.Builder.create(this, "api-gateway").handler(function).build();
 
         CfnOutput.Builder.create(this, "function-output").value(function.getFunctionArn()).build();
@@ -33,7 +33,7 @@ public class CDKStack extends Stack {
     }
     
 
-    Function createUserListenerFunction(String functionName,String functionHandler, Map<String,String> configuration, int memory, int maximumConcurrentExecution, int timeout) {
+    Function createFunction(String functionName,String functionHandler, Map<String,String> configuration, int memory, int maximumConcurrentExecution, int timeout) {
         return Function.Builder.create(this, functionName)
                 .runtime(Runtime.JAVA_11)
                 .code(Code.fromAsset("../lambda/target/function.zip"))
