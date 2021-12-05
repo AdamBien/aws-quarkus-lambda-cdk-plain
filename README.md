@@ -76,6 +76,30 @@ See you at: [airhacks.live](https://airhacks.live)
 
 # in action
 
+## full build
+
+Build the Quarkus project `lambda` and deploy it with `cdk` as AWS Lambda:
+
+`cd lambda`
+`./buildAndDeployDontAsk.sh`
+
+## continuous and accelerated deployment
+
+To continuously deploy the AWS Lambda at any changes, perform: 
+
+`cd cdk`
+`cdk watch`
+
+Now on every: `mvn package` in `lambda` directory the JAX-RS application is going to be re-deployed automatically.
+
+## local deployment
+
+You can run the `lambda` project as regular Quarkus application with:
+
+`mvn compile quarkus:dev`
+
+The application is available under: `http://localhost:8080`
+
 ## Deploying MicroProfile / Quarkus Application as AWS Lambda with Java AWS CDK
 
 [![Deploying MicroProfile / Quarkus Application as AWS Lambda with Java AWS CDK](https://i.ytimg.com/vi/NA0WjIgp4CQ/mqdefault.jpg)](https://www.youtube.com/embed/NA0WjIgp4CQ?rel=0)
