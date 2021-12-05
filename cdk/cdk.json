@@ -2,7 +2,8 @@
   "app": "mvn -e -q compile exec:java",
   "watch":{
     "include":[
-      "../lambda/target/function.zip"
+      "../lambda/target/function.zip",
+      "../lambda/src/main/resources/application.properties"
     ]
   },
   "context": {
