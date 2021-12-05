@@ -92,7 +92,7 @@ To continuously deploy the AWS Lambda at any changes, perform:
 
 `cdk watch`
 
-Now on every: `mvn package` in `lambda` directory the JAX-RS application is going to be re-deployed automatically.
+Now on every: `mvn package` in `lambda` directory / project the JAX-RS application is re-deployed automatically.
 
 ## local deployment
 
@@ -100,7 +100,7 @@ You can run the `lambda` project as regular Quarkus application with:
 
 `mvn compile quarkus:dev`
 
-The application is available under: `http://localhost:8080`
+The application is available under: `http://localhost:8080/hello`
 
 ## Deploying MicroProfile / Quarkus Application as AWS Lambda with Java AWS CDK
 
@@ -108,6 +108,9 @@ The application is available under: `http://localhost:8080`
 
 
 ## Accelarating deployments with CDK v2 Watch
+
+
+Using `cdk watch` for faster deployments
 
 [![Accelerating Deployment with CDK v2 Watch](https://i.ytimg.com/vi/SK7ic9wTYqU/mqdefault.jpg)](https://www.youtube.com/embed/SK7ic9wTYqU?rel=0)
 
