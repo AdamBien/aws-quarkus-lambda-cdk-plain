@@ -41,7 +41,7 @@ public class GreetingResource {
 
 ```java
 
-    Function createUserListenerFunction(String functionName,String functionHandler, 
+Function createFunction(String functionName,String functionHandler, 
     Map<String,String> configuration, int memory, int maximumConcurrentExecution, int timeout) {
 
         return Function.Builder.create(this, functionName)
@@ -80,17 +80,19 @@ See you at: [airhacks.live](https://airhacks.live)
 
 Build the Quarkus project `lambda` and deploy it with `cdk` as AWS Lambda:
 
-`cd lambda`
-
-`./buildAndDeployDontAsk.sh`
+```
+cd lambda
+./buildAndDeployDontAsk.sh
+```
 
 ## continuous and accelerated deployment
 
 To continuously deploy the AWS Lambda at any changes, perform: 
 
-`cd cdk`
-
-`cdk watch`
+```
+cd cdk
+cdk watch
+```
 
 Now on every: `mvn package` in `lambda` directory / project the JAX-RS application is re-deployed automatically.
 
