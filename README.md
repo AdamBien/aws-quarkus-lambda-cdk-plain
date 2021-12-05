@@ -81,6 +81,7 @@ See you at: [airhacks.live](https://airhacks.live)
 Build the Quarkus project `lambda` and deploy it with `cdk` as AWS Lambda:
 
 `cd lambda`
+
 `./buildAndDeployDontAsk.sh`
 
 ## continuous and accelerated deployment
@@ -88,6 +89,7 @@ Build the Quarkus project `lambda` and deploy it with `cdk` as AWS Lambda:
 To continuously deploy the AWS Lambda at any changes, perform: 
 
 `cd cdk`
+
 `cdk watch`
 
 Now on every: `mvn package` in `lambda` directory the JAX-RS application is going to be re-deployed automatically.
