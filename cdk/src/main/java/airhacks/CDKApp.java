@@ -19,5 +19,4 @@ public class CDKApp {
             new CDKStack(app, appName, true);
             app.synth();
         }
-    }
 }
