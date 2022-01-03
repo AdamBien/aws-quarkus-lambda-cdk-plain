@@ -78,7 +78,7 @@ public class CDKApp {
             Tags.of(app).add("environment","development");
             Tags.of(app).add("application", appName);
 
-            var **httpAPIGatewayIntegration** = true;
+            var httpAPIGatewayIntegration = true;
             new CDKStack(app, appName, true);
             app.synth();
         }
