@@ -15,10 +15,9 @@ public class CDKApp {
             Tags.of(app).add("environment","development");
             Tags.of(app).add("application", appName);
 
-            var stackProps = StackProps.builder()
-                    .build();
-        
-        new CDKStack(app, appName, stackProps);
-        app.synth();
+            var httpAPIGatewayIntegration = true;
+            new CDKStack(app, appName, true);
+            app.synth();
+        }
     }
 }
