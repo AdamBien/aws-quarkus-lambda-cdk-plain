@@ -73,6 +73,10 @@ Same installation as [aws-cdk-plain](https://github.com/AdamBien/aws-cdk-plain):
 1. Install [AWS CDK CLI](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
 2. [`cdk boostrap --profile YOUR_AWS_PROFILE`](https://docs.aws.amazon.com/cdk/latest/guide/bootstrapping.html)
 
+This template ships with AWS HTTP APIs Gateway. REST APIs Gateway is also supported. You can switch between both by using the corresponding extension (see [Choosing between HTTP APIs and REST APIs](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html). 
+
+Private APIs are only supported by [REST API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-private-apis.html).
+
 See you at: [airhacks.live](https://airhacks.live)
 
 # in action
