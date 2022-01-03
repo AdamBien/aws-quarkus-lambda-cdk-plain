@@ -47,8 +47,6 @@ or HTTP APIs Gateway (default configuration):
 </dependency>
 ```
 
-
-
 ...deployed with AWS Cloud Development Kit:
 
 ```java
@@ -67,6 +65,25 @@ Function createFunction(String functionName,String functionHandler,
                 .reservedConcurrentExecutions(maximumConcurrentExecution)
                 .build();
     }
+```
+You choose between HTTP APIs gateway and REST APIs gateway with the `httpAPIGatewayIntegration` variable:
+
+``` java
+public class CDKApp {
+    public static void main(final String[] args) {
+
+            var app = new App();
+            var appName = "quarkus-apigateway-lambda-cdk";
+            Tags.of(app).add("project", "MicroProfile with Quarkus on AWS Lambda");
+            Tags.of(app).add("environment","development");
+            Tags.of(app).add("application", appName);
+
+            var **httpAPIGatewayIntegration** = true;
+            new CDKStack(app, appName, true);
+            app.synth();
+        }
+    }
+}
 ```
 
 ## Prerequisites
