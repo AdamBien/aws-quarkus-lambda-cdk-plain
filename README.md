@@ -105,6 +105,8 @@ This template ships with AWS HTTP APIs Gateway. REST APIs Gateway is also suppor
 
 Private APIs are only supported by [REST API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-private-apis.html).
 
+You can also build AWS Lambda `function.zip` and executable Quarkus JAR by extracting the extension into a Maven profile. Checkout: [https://adambien.blog/roller/abien/entry/hybrid_microprofile_deployments_with_quarkus](https://adambien.blog/roller/abien/entry/hybrid_microprofile_deployments_with_quarkus).
+
 See you at: [airhacks.live](https://airhacks.live)
 
 # in action
