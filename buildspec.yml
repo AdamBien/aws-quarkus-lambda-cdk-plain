@@ -1,0 +1,19 @@
+#https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-syntax
+version: 0.2
+env:
+  variables:
+    APPLICATION_NAME: "aws-quarkus-lambda-cdk-plain"
+phases:
+  install:
+    commands:
+      - echo "build started by ${CODEBUILD_INITIATOR}"
+      - echo "running on:"
+      - java -version
+      - mvn -version
+      - cdk --version
+  build:
+    commands:
+      - echo "building AWS Lambda"
+      - cd ${CODEBUILD_SRC_DIR}/lambda && mvn --no-transfer-progress -DskipTests package
+      - echo "building cdk"
+      - cd ${CODEBUILD_SRC_DIR}/cdk && mvn --no-transfer-progress -DskipTests package
