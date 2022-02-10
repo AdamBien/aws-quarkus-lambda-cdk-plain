@@ -10,6 +10,8 @@ phases:
       - echo "running on:"
       - java -version
       - mvn -version
+      - npm --version
+      - npm install -g aws-cdk
       - cdk --version
   build:
     commands:
