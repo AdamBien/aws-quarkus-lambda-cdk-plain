@@ -1,17 +1,15 @@
 package airhacks;
 
-import software.amazon.awscdk.App;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import org.junit.jupiter.api.Test;
 
-import airhacks.CDKStack;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import software.amazon.awscdk.App;
 
 public class CDKAppTest {
     private final static ObjectMapper JSON =
@@ -20,7 +18,7 @@ public class CDKAppTest {
     @Test
     public void testStack() throws IOException {
         App app = new App();
-        var stack = new CDKStack(app, "test",null);
+        var stack = new CDKStack(app, "test",true);
 
         // synthesize the stack to a CloudFormation template
         var actual = JSON.valueToTree(app.synth().getStackArtifact(stack.getArtifactId()).getTemplate());
