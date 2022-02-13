@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
 
 import software.amazon.awscdk.App;
+import software.amazon.awscdk.StackProps;
 
 public class CDKAppTest {
     private final static ObjectMapper JSON =
@@ -18,7 +19,7 @@ public class CDKAppTest {
     @Test
     public void testStack() throws IOException {
         App app = new App();
-        var stack = new CDKStack(app, "test",true);
+        var stack = new CDKStack(app, "test", StackProps.builder().build(),true);
 
         // synthesize the stack to a CloudFormation template
         var actual = JSON.valueToTree(app.synth().getStackArtifact(stack.getArtifactId()).getTemplate());

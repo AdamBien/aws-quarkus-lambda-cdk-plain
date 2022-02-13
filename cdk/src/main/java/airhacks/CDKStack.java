@@ -5,6 +5,7 @@ import java.util.Map;
 import software.amazon.awscdk.CfnOutput;
 import software.amazon.awscdk.Duration;
 import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.services.apigateway.LambdaRestApi;
 import software.amazon.awscdk.services.apigatewayv2.alpha.HttpApi;
 import software.amazon.awscdk.services.apigatewayv2.integrations.alpha.HttpLambdaIntegration;
@@ -23,8 +24,8 @@ public class CDKStack extends Stack {
     static int maxConcurrency = 2;
     static int timeout = 10;
 
-    public CDKStack(final Construct scope, final String id, boolean httpAPIGatewayIntegration) {
-        super(scope, id);
+    public CDKStack(Construct scope, String id, StackProps props, boolean httpAPIGatewayIntegration) {
+        super(scope, id, props);
         
         var function = createFunction(functionName, lambdaHandler, configuration, memory, maxConcurrency, timeout);
 
