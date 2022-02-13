@@ -10,8 +10,8 @@ import software.amazon.awscdk.Tags;
 public class CDKApp {
 
     static StackProps createStackProperties() {
-        var account = System.getenv("CDK_ACCOUNT");
-        var region  = System.getenv("CDK_REGION");
+        var account = System.getenv("CDK_DEPLOY_ACCOUNT");
+        var region  = System.getenv("CDK_DEPLOY_REGION");
 
         if(account == null)
             return StackProps.builder().build();
@@ -33,7 +33,7 @@ public class CDKApp {
 
             var stackProps = createStackProperties();
             var httpAPIGatewayIntegration = true;
-            
+
             new CDKStack(app, appName, stackProps, httpAPIGatewayIntegration);
             app.synth();
         }
