@@ -9,7 +9,7 @@ phases:
       - mvn -version
   build:
     commands:
-      - echo "building system test"
-      - cd ${CODEBUILD_SRC_DIR}/lambda-st && mvn --no-transfer-progress -DskipTests package
-      - echo "executing system test"
-      - cd ${CODEBUILD_SRC_DIR}/lambda-st && mvn test-compile failsafe:integration-test failsafe:verify
+      - echo "compiling system test"
+      - cd ${CODEBUILD_SRC_DIR}/lambda-st && mvn --no-transfer-progress -DskipTests test-compile
+      - echo "performing system test"
+      - cd ${CODEBUILD_SRC_DIR}/lambda-st && mvn failsafe:integration-test failsafe:verify
