@@ -1,0 +1,15 @@
+#https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-syntax
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo "build started by ${CODEBUILD_INITIATOR}"
+      - echo "running on:"
+      - java -version
+      - mvn -version
+  build:
+    commands:
+      - echo "building system test"
+      - cd ${CODEBUILD_SRC_DIR}/lambda-st && mvn --no-transfer-progress -DskipTests package
+      - echo "executing system test"
+      - cd ${CODEBUILD_SRC_DIR}/lambda-st && mvn test-compile failsafe:integration-test failsafe:verify
