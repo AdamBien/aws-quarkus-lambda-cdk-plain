@@ -34,7 +34,7 @@ public class CDKApp {
             var stackProps = createStackProperties();
             var httpAPIGatewayIntegration = true;
 
-            new CDKStack(app, appName, stackProps, httpAPIGatewayIntegration);
+            new LambdaStack(app, appName, stackProps, httpAPIGatewayIntegration);
             app.synth();
         }
 }

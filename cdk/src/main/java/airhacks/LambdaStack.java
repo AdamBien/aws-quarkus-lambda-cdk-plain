@@ -9,12 +9,13 @@ import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.services.apigateway.LambdaRestApi;
 import software.amazon.awscdk.services.apigatewayv2.alpha.HttpApi;
 import software.amazon.awscdk.services.apigatewayv2.integrations.alpha.HttpLambdaIntegration;
+import software.amazon.awscdk.services.lambda.Architecture;
 import software.amazon.awscdk.services.lambda.Code;
 import software.amazon.awscdk.services.lambda.Function;
 import software.amazon.awscdk.services.lambda.Runtime;
 import software.constructs.Construct;
 
-public class CDKStack extends Stack {
+public class LambdaStack extends Stack {
 
 
     static Map<String, String> configuration = Map.of("message", "hello, quarkus as AWS Lambda");
@@ -24,7 +25,7 @@ public class CDKStack extends Stack {
     static int maxConcurrency = 2;
     static int timeout = 10;
 
-    public CDKStack(Construct scope, String id, StackProps props, boolean httpAPIGatewayIntegration) {
+    public LambdaStack(Construct scope, String id, StackProps props, boolean httpAPIGatewayIntegration) {
         super(scope, id, props);
         
         var function = createFunction(functionName, lambdaHandler, configuration, memory, maxConcurrency, timeout);
@@ -55,6 +56,7 @@ public class CDKStack extends Stack {
     Function createFunction(String functionName,String functionHandler, Map<String,String> configuration, int memory, int maximumConcurrentExecution, int timeout) {
         return Function.Builder.create(this, functionName)
                 .runtime(Runtime.JAVA_11)
+                .architecture(Architecture.ARM_64)
                 .code(Code.fromAsset("../lambda/target/function.zip"))
                 .handler(functionHandler)
                 .memorySize(memory)
