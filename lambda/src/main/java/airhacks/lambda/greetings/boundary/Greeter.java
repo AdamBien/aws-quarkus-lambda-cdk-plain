@@ -8,6 +8,8 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class Greeter {
 
+    static System.Logger LOG = System.getLogger(Greeter.class.getName()); 
+
     @Inject
     @ConfigProperty(defaultValue = "hello, quarkus on AWS", name="message")
     String message;
@@ -17,6 +19,6 @@ public class Greeter {
     }
 
     public void greetings(String message) {
-        System.out.println("received: " + message);
+        LOG.log(System.Logger.Level.INFO, "received: " + message);
     }
 }
