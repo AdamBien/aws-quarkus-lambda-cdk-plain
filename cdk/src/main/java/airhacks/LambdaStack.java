@@ -26,7 +26,7 @@ public class LambdaStack extends Stack {
     static int timeout = 10;
 
     public LambdaStack(Construct scope, String id, StackProps props, boolean httpAPIGatewayIntegration) {
-        super(scope, id+"-lambda", props);
+        super(scope, id, props);
         
         var function = createFunction(functionName, lambdaHandler, configuration, memory, maxConcurrency, timeout);
 
