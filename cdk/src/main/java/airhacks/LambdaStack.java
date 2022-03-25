@@ -21,12 +21,12 @@ public class LambdaStack extends Stack {
     static Map<String, String> configuration = Map.of("message", "hello, quarkus as AWS Lambda");
     static String functionName  = "airhacks_lambda_gretings_boundary_Greetings";
     static String lambdaHandler = "io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest";
-    static int memory = 512;
+    static int memory = 1024; //~0.5 vCPU
     static int maxConcurrency = 2;
     static int timeout = 10;
 
     public LambdaStack(Construct scope, String id, StackProps props, boolean httpAPIGatewayIntegration) {
-        super(scope, id, props);
+        super(scope, id+"-lambda", props);
         
         var function = createFunction(functionName, lambdaHandler, configuration, memory, maxConcurrency, timeout);
 
@@ -35,22 +35,21 @@ public class LambdaStack extends Stack {
         else
             integrateWithRestApiGateway(function);
 
-        CfnOutput.Builder.create(this, "function-http-api-integration").value(String.valueOf(httpAPIGatewayIntegration)).build();
-        CfnOutput.Builder.create(this, "function-output").value(function.getFunctionArn()).build();
+        CfnOutput.Builder.create(this, "FunctionHttpApiIntegration").value(String.valueOf(httpAPIGatewayIntegration)).build();
+        CfnOutput.Builder.create(this, "FunctionArnOutput").value(function.getFunctionArn()).build();
 
     }
 
     void integrateWithRestApiGateway(Function function){
-        var apiGateway = LambdaRestApi.Builder.create(this, "api-gateway").handler(function).build();
-        CfnOutput.Builder.create(this, "rest-api-gateway-output").value(apiGateway.getUrl()).build();
+        var apiGateway = LambdaRestApi.Builder.create(this, "RestApiGateway").handler(function).build();
+        CfnOutput.Builder.create(this, "RestApiGatewayUrlOutput").value(apiGateway.getUrl()).build();
 
     }
 
     void integrateWithHTTPApiGateway(Function function){
-        var lambdaIntegration = HttpLambdaIntegration.Builder.create("http-api-gateway-integration",function).build();
-        var httpApiGateway =  HttpApi.Builder.create(this, "http-api-gateway-integration").defaultIntegration(lambdaIntegration).build();
-        CfnOutput.Builder.create(this, "http-api-gateway-output").value(httpApiGateway.getUrl()).build();
-
+        var lambdaIntegration = HttpLambdaIntegration.Builder.create("HttpApiGatewayIntegration",function).build();
+        var httpApiGateway =  HttpApi.Builder.create(this, "HttpApiGatewayIntegration").defaultIntegration(lambdaIntegration).build();
+        CfnOutput.Builder.create(this, "HttpApiGatewayUrlOutput").value(httpApiGateway.getUrl()).build();
     }
 
     Function createFunction(String functionName,String functionHandler, Map<String,String> configuration, int memory, int maximumConcurrentExecution, int timeout) {
