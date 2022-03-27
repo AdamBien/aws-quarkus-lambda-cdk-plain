@@ -1,5 +1,7 @@
 package airhacks.lambda.greetings.boundary;
 
+import static java.lang.System.Logger.Level.*;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -19,6 +21,6 @@ public class Greeter {
     }
 
     public void greetings(String message) {
-        LOG.log(System.Logger.Level.INFO, "received: " + message);
+        LOG.log(INFO, "received: " + message);
     }
 }
