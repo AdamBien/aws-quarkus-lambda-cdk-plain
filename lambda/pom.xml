@@ -26,6 +26,13 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>${quarkus.platform.group-id}</groupId>
+        <artifactId>quarkus-amazon-services-bom</artifactId>
+        <version>${quarkus.platform.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
@@ -47,6 +54,11 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-amazon-lambda-http</artifactId>
     </dependency>
+    <!-- only needed for AWS services like e.g. S3 -->
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>url-connection-client</artifactId>
+    </dependency>      
     <!--
     <dependency>
       <groupId>io.quarkus</groupId>
