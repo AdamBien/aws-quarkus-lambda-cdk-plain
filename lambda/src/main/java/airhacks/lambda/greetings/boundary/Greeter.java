@@ -17,10 +17,11 @@ public class Greeter {
     String message;
     
     public String greetings() {
+        LOG.log(INFO, "returning: " + this.message);
         return this.message;
     }
 
-    public void greetings(String message) {
-        LOG.log(INFO, "received: " + message);
+    public void greetings(String userMessage) {
+        LOG.log(INFO, "received: " + userMessage);
     }
 }
