@@ -49,7 +49,9 @@ public class LambdaStack extends Stack {
     void integrateWithHTTPApiGateway(Function function){
         var lambdaIntegration = HttpLambdaIntegration.Builder.create("HttpApiGatewayIntegration",function).build();
         var httpApiGateway =  HttpApi.Builder.create(this, "HttpApiGatewayIntegration").defaultIntegration(lambdaIntegration).build();
-        CfnOutput.Builder.create(this, "HttpApiGatewayUrlOutput").value(httpApiGateway.getUrl()).build();
+        var url = httpApiGateway.getUrl();
+        CfnOutput.Builder.create(this, "HttpApiGatewayUrlOutput").value(url).build();
+        CfnOutput.Builder.create(this, "HttpApiGatewayCurlOutput").value("curl -i " + url + "hello").build();
     }
 
     Function createFunction(String functionName,String functionHandler, Map<String,String> configuration, int memory, int maximumConcurrentExecution, int timeout) {
