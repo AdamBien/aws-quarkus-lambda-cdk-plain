@@ -1,5 +1,6 @@
 package airhacks;
 
+import airhacks.lambda.boundary.LambdaStack;
 import software.amazon.awscdk.App;
 import software.amazon.awscdk.Environment;
 import software.amazon.awscdk.StackProps;
@@ -34,7 +35,7 @@ public class CDKApp {
             var stackProps = createStackProperties();
             var httpAPIGatewayIntegration = true;
 
-            new LambdaStack(app, appName, stackProps, httpAPIGatewayIntegration);
+            new LambdaStack(app, appName,httpAPIGatewayIntegration);
             app.synth();
         }
 }
