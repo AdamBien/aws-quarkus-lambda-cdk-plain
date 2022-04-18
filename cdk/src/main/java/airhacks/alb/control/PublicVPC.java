@@ -14,7 +14,7 @@ public class PublicVPC extends Construct {
                 .enableDnsHostnames(true)
                 .enableDnsSupport(true)
                 .natGateways(0)
-                .maxAzs(1)
+                .maxAzs(2)
                 .build();
     }
 
