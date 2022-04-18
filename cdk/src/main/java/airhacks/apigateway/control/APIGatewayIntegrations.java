@@ -1,4 +1,4 @@
-package airhacks.lambda.control;
+package airhacks.apigateway.control;
 
 import software.amazon.awscdk.CfnOutput;
 import software.amazon.awscdk.services.apigateway.LambdaRestApi;

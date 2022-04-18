@@ -1,6 +1,7 @@
 package airhacks;
 
-import airhacks.lambda.boundary.LambdaStack;
+import airhacks.alb.boundary.LambdaAlbStack;
+import airhacks.apigateway.boundary.LambdaApiGatewayStack;
 import software.amazon.awscdk.App;
 import software.amazon.awscdk.Environment;
 import software.amazon.awscdk.StackProps;
@@ -27,15 +28,16 @@ public class CDKApp {
     public static void main(final String[] args) {
 
             var app = new App();
-            var appName = "quarkus-apigateway-lambda-cdk";
+            var appName = "quarkus-lambda";
+
             Tags.of(app).add("project", "MicroProfile with Quarkus on AWS Lambda");
             Tags.of(app).add("environment","development");
             Tags.of(app).add("application", appName);
 
             var stackProps = createStackProperties();
-            var httpAPIGatewayIntegration = true;
 
-            new LambdaStack(app, appName,httpAPIGatewayIntegration);
+            new LambdaApiGatewayStack(app, appName);
+            //new LambdaAlbStack(app,appName);
             app.synth();
         }
 }

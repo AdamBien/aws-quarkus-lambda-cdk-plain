@@ -49,22 +49,24 @@
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- only needed for AWS services like e.g. S3 -->
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>url-connection-client</artifactId>
+    </dependency>
+    
     <!-- https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-amazon-lambda-http</artifactId>
     </dependency>
-    <!-- only needed for AWS services like e.g. S3 -->
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>url-connection-client</artifactId>
-    </dependency>      
-    <!--
-    <dependency>
+  
+    <!-- use for REST API Gateway and for LB integration -->
+    <!--dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-amazon-lambda-rest</artifactId>
-    </dependency>
-    -->
+    </dependency-->
+
     <!-- enables json format for log entries. fully optional. -->
     <dependency>
       <groupId>io.quarkus</groupId>
