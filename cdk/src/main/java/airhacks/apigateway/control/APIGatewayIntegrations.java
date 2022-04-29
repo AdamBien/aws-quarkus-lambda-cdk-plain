@@ -4,12 +4,12 @@ import software.amazon.awscdk.CfnOutput;
 import software.amazon.awscdk.services.apigateway.LambdaRestApi;
 import software.amazon.awscdk.services.apigatewayv2.alpha.HttpApi;
 import software.amazon.awscdk.services.apigatewayv2.integrations.alpha.HttpLambdaIntegration;
-import software.amazon.awscdk.services.lambda.Function;
+import software.amazon.awscdk.services.lambda.IFunction;
 import software.constructs.Construct;
 
 public class APIGatewayIntegrations extends Construct {
 
-    public APIGatewayIntegrations(Construct scope, boolean httpAPIGatewayIntegration, Function function) {
+    public APIGatewayIntegrations(Construct scope, boolean httpAPIGatewayIntegration, IFunction function) {
         super(scope, "APIGatewayIntegration");
 
         if (httpAPIGatewayIntegration)
@@ -22,13 +22,13 @@ public class APIGatewayIntegrations extends Construct {
         CfnOutput.Builder.create(this, "FunctionArnOutput").value(function.getFunctionArn()).build();
     }
 
-    void integrateWithRestApiGateway(Function function) {
+    void integrateWithRestApiGateway(IFunction function) {
         var apiGateway = LambdaRestApi.Builder.create(this, "RestApiGateway").handler(function).build();
         CfnOutput.Builder.create(this, "RestApiGatewayUrlOutput").value(apiGateway.getUrl()).build();
 
     }
 
-    void integrateWithHTTPApiGateway(Function function) {
+    void integrateWithHTTPApiGateway(IFunction function) {
         var lambdaIntegration = HttpLambdaIntegration.Builder.create("HttpApiGatewayIntegration", function).build();
         var httpApiGateway = HttpApi.Builder.create(this, "HttpApiGatewayIntegration")
                 .defaultIntegration(lambdaIntegration).build();
