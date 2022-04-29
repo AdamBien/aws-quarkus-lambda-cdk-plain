@@ -25,28 +25,28 @@
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>aws-cdk-lib</artifactId>
-            <version>2.18.0</version>
+            <version>2.22.0</version>
         </dependency>
         <!-- alpha versions for HttpApi gateway integration-->
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>apigatewayv2-alpha</artifactId>
-            <version>2.18.0-alpha.0</version>
+            <version>2.22.0-alpha.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>apigatewayv2-integrations-alpha</artifactId>
-            <version>2.18.0-alpha.0</version>
+            <version>2.22.0-alpha.0</version>
         </dependency>
         <dependency>
             <groupId>software.constructs</groupId>
             <artifactId>constructs</artifactId>
-            <version>3.3.252</version>
+            <version>3.3.280</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.1</version>
+            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
