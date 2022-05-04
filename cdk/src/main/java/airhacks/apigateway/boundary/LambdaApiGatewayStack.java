@@ -15,7 +15,6 @@ public class LambdaApiGatewayStack extends Stack {
         super(scope, id+"-apigateway-stack");
         var quarkuLambda = new QuarkusLambda(this,FUNCTION_NAME);
         new APIGatewayIntegrations(this, HTTP_API_GATEWAY_INTEGRATION, quarkuLambda.getFunction());
-
     }
 
 
