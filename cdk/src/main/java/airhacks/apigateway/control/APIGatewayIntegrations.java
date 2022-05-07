@@ -22,12 +22,18 @@ public class APIGatewayIntegrations extends Construct {
         CfnOutput.Builder.create(this, "FunctionArnOutput").value(function.getFunctionArn()).build();
     }
 
+    /**
+     * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-rest-api.html
+     */
     void integrateWithRestApiGateway(IFunction function) {
         var apiGateway = LambdaRestApi.Builder.create(this, "RestApiGateway").handler(function).build();
         CfnOutput.Builder.create(this, "RestApiGatewayUrlOutput").value(apiGateway.getUrl()).build();
 
     }
 
+    /**
+     * https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api.html
+     */
     void integrateWithHTTPApiGateway(IFunction function) {
         var lambdaIntegration = HttpLambdaIntegration.Builder.create("HttpApiGatewayIntegration", function).build();
         var httpApiGateway = HttpApi.Builder.create(this, "HttpApiGatewayIntegration")

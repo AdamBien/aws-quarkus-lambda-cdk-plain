@@ -15,16 +15,15 @@ public class QuarkusLambda extends Construct{
     static Map<String, String> configuration = Map.of("message", "hello, quarkus as AWS Lambda");
     static String lambdaHandler = "io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest";
     static int memory = 1024; //~0.5 vCPU
-    static int maxConcurrency = 2;
     static int timeout = 10;
     IFunction function;
 
     public QuarkusLambda(Construct scope,String functionName) {
         super(scope, "QuarkusLambda");
-        this.function = createFunction(functionName, lambdaHandler, configuration, memory, maxConcurrency, timeout);
+        this.function = createFunction(functionName, lambdaHandler, configuration, memory, timeout);
     }
 
-    IFunction createFunction(String functionName,String functionHandler, Map<String,String> configuration, int memory, int maximumConcurrentExecution, int timeout) {
+    IFunction createFunction(String functionName,String functionHandler, Map<String,String> configuration, int memory, int timeout) {
         return Function.Builder.create(this, functionName)
                 .runtime(Runtime.JAVA_11)
                 .architecture(Architecture.ARM_64)
@@ -34,7 +33,6 @@ public class QuarkusLambda extends Construct{
                 .functionName(functionName)
                 .environment(configuration)
                 .timeout(Duration.seconds(timeout))
-                .reservedConcurrentExecutions(maximumConcurrentExecution)
                 .build();
     }    
 
