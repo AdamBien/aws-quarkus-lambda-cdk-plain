@@ -12,7 +12,9 @@ import software.constructs.Construct;
 
 public class QuarkusLambda extends Construct{
 
-    static Map<String, String> configuration = Map.of("message", "hello, quarkus as AWS Lambda");
+    static Map<String, String> configuration = Map.of(
+            "message", "hello, quarkus as AWS Lambda",
+            "JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1");
     static String lambdaHandler = "io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest";
     static int memory = 1024; //~0.5 vCPU
     static int timeout = 10;

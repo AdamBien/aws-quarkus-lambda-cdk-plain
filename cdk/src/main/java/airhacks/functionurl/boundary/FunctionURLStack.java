@@ -13,8 +13,8 @@ public class FunctionURLStack extends Stack {
 
     public FunctionURLStack(Construct construct,String id) {
         super(construct,id+ "-function-url-stack");
-        var quarkuLambda = new QuarkusLambda(this, FUNCTION_NAME);
-        var function = quarkuLambda.getFunction();
+        var quarkusLambda = new QuarkusLambda(this, FUNCTION_NAME);
+        var function = quarkusLambda.getFunction();
         var functionUrl = function.addFunctionUrl(FunctionUrlOptions.builder()
                 .authType(FunctionUrlAuthType.NONE)
                 .build());
