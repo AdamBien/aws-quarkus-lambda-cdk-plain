@@ -3,6 +3,7 @@ package airhacks.lambda.control;
 import java.util.Map;
 
 import software.amazon.awscdk.Duration;
+import software.amazon.awscdk.services.lambda.Alias;
 import software.amazon.awscdk.services.lambda.Architecture;
 import software.amazon.awscdk.services.lambda.CfnFunction;
 import software.amazon.awscdk.services.lambda.Code;
@@ -29,8 +30,10 @@ public class QuarkusLambda extends Construct {
     public QuarkusLambda(Construct scope, String functionName, boolean snapStart) {
         super(scope, "QuarkusLambda");
         this.function = createFunction(functionName, lambdaHandler, configuration, memory, timeout,snapStart);
-        if (snapStart)
-            this.function = setupSnapStart(this.function);
+        if (snapStart){ 
+            var version = setupSnapStart(this.function);
+            this.function = createAlias(version);
+        }
     }
 
     Version setupSnapStart(IFunction function) {
@@ -42,7 +45,15 @@ public class QuarkusLambda extends Construct {
         return Version.Builder.create(this, "SnapStartVersion")
                 .lambda(this.function)
                 .description("SnapStart")
-                .build();
+                .build();              
+    }
+
+    Alias createAlias(Version version){
+        return Alias.Builder.create(this, "SnapstartAlias")
+        .aliasName("snapstart")
+        .description("this alias is required for SnapStart")
+        .version(version)
+        .build();
     }
 
     IFunction createFunction(String functionName, String functionHandler, Map<String, String> configuration, int memory,
