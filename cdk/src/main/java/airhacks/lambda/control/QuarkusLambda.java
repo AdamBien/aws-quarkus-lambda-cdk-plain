@@ -58,7 +58,7 @@ public class QuarkusLambda extends Construct {
 
     IFunction createFunction(String functionName, String functionHandler, Map<String, String> configuration, int memory,
             int timeout,boolean snapStart) {
-        var architecture = snapStart?Architecture.ARM_64:Architecture.X86_64;
+        var architecture = snapStart?Architecture.X86_64:Architecture.ARM_64;
         return Function.Builder.create(this, functionName)
                 .runtime(Runtime.JAVA_11)
                 .architecture(architecture)
