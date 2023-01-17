@@ -11,9 +11,9 @@ public class FunctionURLStack extends Stack {
 
     static String FUNCTION_NAME = "airhacks_lambda_gretings_boundary_Greetings";
 
-    public FunctionURLStack(Construct construct,String id) {
+    public FunctionURLStack(Construct construct,String id,boolean snapStart) {
         super(construct,id+ "-function-url-stack");
-        var quarkusLambda = new QuarkusLambda(this, FUNCTION_NAME);
+        var quarkusLambda = new QuarkusLambda(this, FUNCTION_NAME,snapStart);
         var function = quarkusLambda.getFunction();
         var functionUrl = function.addFunctionUrl(FunctionUrlOptions.builder()
                 .authType(FunctionUrlAuthType.NONE)

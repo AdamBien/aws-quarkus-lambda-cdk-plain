@@ -36,8 +36,8 @@ public class CDKApp {
             Tags.of(app).add("application", appName);
 
             var stackProps = createStackProperties();
-
-            new FunctionURLStack(app,appName);
+            var snapStart = false;
+            new FunctionURLStack(app,appName,snapStart);
             //new LambdaApiGatewayStack(app, appName);
             //new LambdaAlbStack(app,appName);
             app.synth();
