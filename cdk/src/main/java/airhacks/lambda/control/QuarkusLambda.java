@@ -28,7 +28,7 @@ public class QuarkusLambda extends Construct {
 
     public QuarkusLambda(Construct scope, String functionName, boolean snapStart) {
         super(scope, "QuarkusLambda");
-        this.function = createFunction(functionName, lambdaHandler, configuration, memory, timeout);
+        this.function = createFunction(functionName, lambdaHandler, configuration, memory, timeout,snapStart);
         if (snapStart)
             this.function = setupSnapStart(this.function);
     }
@@ -46,10 +46,11 @@ public class QuarkusLambda extends Construct {
     }
 
     IFunction createFunction(String functionName, String functionHandler, Map<String, String> configuration, int memory,
-            int timeout) {
+            int timeout,boolean snapStart) {
+        var architecture = snapStart?Architecture.ARM_64:Architecture.X86_64;
         return Function.Builder.create(this, functionName)
                 .runtime(Runtime.JAVA_11)
-                .architecture(Architecture.ARM_64)
+                .architecture(architecture)
                 .code(Code.fromAsset("../lambda/target/function.zip"))
                 .handler(functionHandler)
                 .memorySize(memory)
