@@ -42,11 +42,14 @@ public class QuarkusLambda extends Construct {
             var cfnFunction = (CfnFunction) defaultChild;
             cfnFunction.addPropertyOverride("SnapStart", Map.of("ApplyOn", "PublishedVersions"));
         }
-        return Version.Builder.create(this, "SnapStartVersion")
+        //a fresh logicalId enfoces code redeployment
+        var uniqueLogicalId = "SnapStartVersion"+System.currentTimeMillis();
+        return Version.Builder.create(this, uniqueLogicalId)
                 .lambda(this.function)
                 .description("SnapStart")
                 .build();              
     }
+
 
     Alias createAlias(Version version){
         return Alias.Builder.create(this, "SnapstartAlias")
