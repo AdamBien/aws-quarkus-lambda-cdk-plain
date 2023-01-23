@@ -38,7 +38,7 @@ public class QuarkusLambda extends Construct {
 
     Version setupSnapStart(IFunction function) {
         var defaultChild = this.function.getNode().getDefaultChild();
-        if (defaultChild instanceof CfnFunction) {
+        if (defaultChild instanceof CfnFunction cfnFunction) {
             var cfnFunction = (CfnFunction) defaultChild;
             cfnFunction.addPropertyOverride("SnapStart", Map.of("ApplyOn", "PublishedVersions"));
         }
