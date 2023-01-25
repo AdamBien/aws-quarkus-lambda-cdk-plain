@@ -17,7 +17,7 @@ public class QuarkusLambda extends Construct {
 
     static Map<String, String> configuration = Map.of(
             "message", "hello, quarkus as AWS Lambda",
-            "JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1");
+            "JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -XX:verbose:class");
     static String lambdaHandler = "io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest";
     static int memory = 1024; // ~0.5 vCPU
     static int timeout = 10;
@@ -39,7 +39,6 @@ public class QuarkusLambda extends Construct {
     Version setupSnapStart(IFunction function) {
         var defaultChild = this.function.getNode().getDefaultChild();
         if (defaultChild instanceof CfnFunction cfnFunction) {
-            var cfnFunction = (CfnFunction) defaultChild;
             cfnFunction.addPropertyOverride("SnapStart", Map.of("ApplyOn", "PublishedVersions"));
         }
         //a fresh logicalId enfoces code redeployment
