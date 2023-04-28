@@ -1,5 +1,6 @@
 package airhacks.alb.control;
 
+import software.amazon.awscdk.services.ec2.IpAddresses;
 import software.amazon.awscdk.services.ec2.Vpc;
 import software.constructs.Construct;
 
@@ -10,7 +11,7 @@ public class PublicVPC extends Construct {
     public PublicVPC(Construct scope) {
         super(scope, "PublicVPC");
         this.vpc = Vpc.Builder.create(this, "VPC")
-                .cidr("10.0.0.0/16")
+                .ipAddresses(IpAddresses.cidr("10.0.0.0/16"))
                 .enableDnsHostnames(true)
                 .enableDnsSupport(true)
                 .natGateways(0)
