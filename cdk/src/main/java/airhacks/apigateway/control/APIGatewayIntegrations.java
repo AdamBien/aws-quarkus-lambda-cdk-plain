@@ -37,7 +37,8 @@ public class APIGatewayIntegrations extends Construct {
     void integrateWithHTTPApiGateway(IFunction function) {
         var lambdaIntegration = HttpLambdaIntegration.Builder.create("HttpApiGatewayIntegration", function).build();
         var httpApiGateway = HttpApi.Builder.create(this, "HttpApiGatewayIntegration")
-                .defaultIntegration(lambdaIntegration).build();
+                .defaultIntegration(lambdaIntegration)
+                .build();
         var url = httpApiGateway.getUrl();
         CfnOutput.Builder.create(this, "HttpApiGatewayUrlOutput").value(url).build();
         CfnOutput.Builder.create(this, "HttpApiGatewayCurlOutput").value("curl -i " + url + "hello").build();
