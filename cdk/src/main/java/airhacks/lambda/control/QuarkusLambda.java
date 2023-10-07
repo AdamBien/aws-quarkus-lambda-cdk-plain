@@ -1,5 +1,6 @@
 package airhacks.lambda.control;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import software.amazon.awscdk.Duration;
@@ -41,8 +42,8 @@ public class QuarkusLambda extends Construct {
         if (defaultChild instanceof CfnFunction cfnFunction) {
             cfnFunction.addPropertyOverride("SnapStart", Map.of("ApplyOn", "PublishedVersions"));
         }
-        //a fresh logicalId enfoces code redeployment
-        var uniqueLogicalId = "SnapStartVersion"+System.currentTimeMillis();
+        //a fresh logicalId enforces code redeployment
+        var uniqueLogicalId = "SnapStartVersion_"+LocalDateTime.now().toString();
         return Version.Builder.create(this, uniqueLogicalId)
                 .lambda(this.function)
                 .description("SnapStart")
