@@ -10,23 +10,9 @@ import software.amazon.awscdk.Tags;
 
 
 
-public class CDKApp {
+public interface CDKApp {
 
-    static StackProps createStackProperties() {
-        var account = System.getenv("CDK_DEPLOY_ACCOUNT");
-        var region  = System.getenv("CDK_DEPLOY_REGION");
-
-        if(account == null)
-            return StackProps.builder().build();
-
-        var environment =  Environment.builder()
-                .account(account)
-                .region(region)
-                .build();
-        return StackProps.builder().env(environment).build();
-    }
-
-    public static void main(final String[] args) {
+    static void main(String... args) {
 
             var app = new App();
             var appName = "quarkus-lambda";
@@ -35,7 +21,6 @@ public class CDKApp {
             Tags.of(app).add("environment","development");
             Tags.of(app).add("application", appName);
 
-            var stackProps = createStackProperties();
             var snapStart = false;
             new FunctionURLStack(app,appName,snapStart);
             //new LambdaApiGatewayStack(app, appName);
