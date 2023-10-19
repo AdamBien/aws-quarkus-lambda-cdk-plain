@@ -19,11 +19,12 @@ public class GreetingsResourceIT {
     @ConfigProperty(name = "base_uri/mp-rest/url")
     String baseURI;
 
+
     @Test
     public void hello() {
         var message = this.rut.content();
         assertNotNull(message);
-        System.out.println(message);
+        System.out.println("baseURI: %s message: %s".formatted(baseURI,message));
     }
 
 }

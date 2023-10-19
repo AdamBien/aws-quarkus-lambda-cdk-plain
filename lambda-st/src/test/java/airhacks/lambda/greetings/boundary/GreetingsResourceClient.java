@@ -7,12 +7,12 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
+@Path("hello")
 @RegisterRestClient(configKey = "base_uri")
 public interface GreetingsResourceClient {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    @Path("hello")
     String content();
 
 }
