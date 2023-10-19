@@ -8,7 +8,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 @RegisterRestClient(configKey = "base_uri")
-public interface GreetingsResource {
+public interface GreetingsResourceClient {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)

@@ -13,7 +13,7 @@ public class GreetingsResourceIT {
 
     @Inject
     @RestClient
-    GreetingsResource resource;
+    GreetingsResourceClient rut;
 
     @Inject
     @ConfigProperty(name = "base_uri/mp-rest/url")
@@ -21,7 +21,7 @@ public class GreetingsResourceIT {
 
     @Test
     public void hello() {
-        var message = this.resource.content();
+        var message = this.rut.content();
         assertNotNull(message);
         System.out.println(message);
     }
