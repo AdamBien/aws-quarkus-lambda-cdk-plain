@@ -1,14 +1,12 @@
 package airhacks.lambda.greetings.boundary;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import javax.inject.Inject;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
 
 @QuarkusTest
 public class GreetingsResourceIT {
