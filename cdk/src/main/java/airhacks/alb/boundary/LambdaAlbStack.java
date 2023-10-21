@@ -1,6 +1,7 @@
 package airhacks.alb.boundary;
 
 import java.util.List;
+import java.util.Map;
 
 import airhacks.alb.control.Alb;
 import airhacks.alb.control.PublicVPC;
@@ -19,8 +20,11 @@ public class LambdaAlbStack extends Stack {
 
     public LambdaAlbStack(Construct scope, String id) {
         super(scope, id+"-alb-stack");
+        var configuration = Map.of(
+            "message", "hello, quarkus as AWS Lambda",
+            "JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1");
 
-        var quarkuLambda = new QuarkusLambda(this,FUNCTION_NAME);
+        var quarkuLambda = new QuarkusLambda(this,FUNCTION_NAME,configuration);
         var publicVPCConstruct = new PublicVPC(this);
         var publicVPC = publicVPCConstruct.getVpc();
         var alb = new Alb(this, publicVPC, "AirhacksLambdaLB");

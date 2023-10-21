@@ -16,19 +16,16 @@ import software.constructs.Construct;
 
 public class QuarkusLambda extends Construct {
 
-    static Map<String, String> configuration = Map.of(
-            "message", "hello, quarkus as AWS Lambda",
-            "JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1");
     static String lambdaHandler = "io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest";
     static int memory = 1024; // ~0.5 vCPU
     static int timeout = 10;
     IFunction function;
 
-    public QuarkusLambda(Construct scope, String functionName){
-        this(scope,functionName,true);
+    public QuarkusLambda(Construct scope, String functionName,Map<String,String> configuration){
+        this(scope,functionName,true,configuration);
     }
 
-    public QuarkusLambda(Construct scope, String functionName, boolean snapStart) {
+    public QuarkusLambda(Construct scope, String functionName, boolean snapStart,Map<String,String> configuration) {
         super(scope, "QuarkusLambda");
         this.function = createFunction(functionName, lambdaHandler, configuration, memory, timeout,snapStart);
         if (snapStart){ 
