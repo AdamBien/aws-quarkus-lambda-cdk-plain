@@ -16,8 +16,7 @@ public class FunctionURLStack extends Stack {
     public FunctionURLStack(Construct construct,String id,boolean snapStart) {
         super(construct,id+ "-function-url-stack");
         var configuration = Map.of(
-            "message", "hello, quarkus as AWS Lambda",
-            "JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1");
+            "message", "hello, quarkus as AWS Lambda");
 
         var quarkusLambda = new QuarkusLambda(this, FUNCTION_NAME,snapStart,configuration);
         var function = quarkusLambda.getFunction();

@@ -1,6 +1,7 @@
 package airhacks.lambda.control;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 import software.amazon.awscdk.Duration;
@@ -14,19 +15,23 @@ import software.amazon.awscdk.services.lambda.Runtime;
 import software.amazon.awscdk.services.lambda.Version;
 import software.constructs.Construct;
 
-public class QuarkusLambda extends Construct {
+public final class QuarkusLambda extends Construct {
 
     static String lambdaHandler = "io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest";
     static int memory = 1024; // ~0.5 vCPU
     static int timeout = 10;
+    static Map<String,String> RUNTIME_CONFIGURATION = Map.of(
+            "JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1");
+
     IFunction function;
 
-    public QuarkusLambda(Construct scope, String functionName,Map<String,String> configuration){
-        this(scope,functionName,true,configuration);
+    public QuarkusLambda(Construct scope, String functionName,Map<String,String> applicationConfiguration){
+        this(scope,functionName,true,applicationConfiguration);
     }
 
-    public QuarkusLambda(Construct scope, String functionName, boolean snapStart,Map<String,String> configuration) {
+    public QuarkusLambda(Construct scope, String functionName, boolean snapStart,Map<String,String> applicationConfiguration) {
         super(scope, "QuarkusLambda");
+        var configuration = mergeWithRuntimeConfiguration(applicationConfiguration);
         this.function = createFunction(functionName, lambdaHandler, configuration, memory, timeout,snapStart);
         if (snapStart){ 
             var version = setupSnapStart(this.function);
@@ -69,6 +74,12 @@ public class QuarkusLambda extends Construct {
                 .environment(configuration)
                 .timeout(Duration.seconds(timeout))
                 .build();
+    }
+
+    static Map<String,String> mergeWithRuntimeConfiguration(Map<String,String> applicationConfiguuration){
+        var configuration = new HashMap<>(RUNTIME_CONFIGURATION);
+        configuration.putAll(applicationConfiguuration);
+        return configuration;
     }
 
     public IFunction getFunction() {

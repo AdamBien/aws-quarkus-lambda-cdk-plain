@@ -17,8 +17,7 @@ public class LambdaApiGatewayStack extends Stack {
         super(scope, id+"-apigateway-stack");
     
         var configuration = Map.of(
-            "message", "hello, quarkus as AWS Lambda",
-            "JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1");
+            "message", "hello, quarkus as AWS Lambda");
 
         var quarkuLambda = new QuarkusLambda(this,FUNCTION_NAME,configuration);
         new APIGatewayIntegrations(this, HTTP_API_GATEWAY_INTEGRATION, quarkuLambda.getFunction());

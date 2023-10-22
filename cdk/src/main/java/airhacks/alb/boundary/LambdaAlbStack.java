@@ -21,8 +21,7 @@ public class LambdaAlbStack extends Stack {
     public LambdaAlbStack(Construct scope, String id) {
         super(scope, id+"-alb-stack");
         var configuration = Map.of(
-            "message", "hello, quarkus as AWS Lambda",
-            "JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1");
+            "message", "hello, quarkus as AWS Lambda");
 
         var quarkuLambda = new QuarkusLambda(this,FUNCTION_NAME,configuration);
         var publicVPCConstruct = new PublicVPC(this);
