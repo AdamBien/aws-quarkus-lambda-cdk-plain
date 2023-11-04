@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import airhacks.ConventionalDefaults;
+import airhacks.alb.boundary.LambdaAlbStack;
 import software.amazon.awscdk.Duration;
 import software.amazon.awscdk.services.lambda.Alias;
 import software.amazon.awscdk.services.lambda.Architecture;
@@ -17,27 +19,25 @@ import software.constructs.Construct;
 
 public final class QuarkusLambda extends Construct {
 
-    static String lambdaHandler = "io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest";
-    static int memory = 1024; // ~0.5 vCPU
     static int timeout = 10;
     static Map<String,String> RUNTIME_CONFIGURATION = Map.of(
             "JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1");
 
     IFunction function;
 
-    public QuarkusLambda(Construct scope, String functionName,Map<String,String> applicationConfiguration){
-        this(scope,functionName,true,applicationConfiguration);
-    }
-
-    public QuarkusLambda(Construct scope, String functionName, boolean snapStart,Map<String,String> applicationConfiguration) {
+    public QuarkusLambda(Construct scope, String functionZip,String functionName,String lambdaHandler, int ramInMb,boolean snapStart,Map<String,String> applicationConfiguration) {
         super(scope, "QuarkusLambda");
         var configuration = mergeWithRuntimeConfiguration(applicationConfiguration);
-        this.function = createFunction(functionName, lambdaHandler, configuration, memory, timeout,snapStart);
+        this.function = createFunction(functionZip,functionName, lambdaHandler, configuration, ramInMb, timeout,snapStart);
         if (snapStart){ 
             var version = setupSnapStart(this.function);
             this.function = createAlias(version);
         }
     }
+
+    public QuarkusLambda(Construct scope, String functionName,Map<String, String> configuration) {
+        this(scope,ConventionalDefaults.functionZip,functionName,ConventionalDefaults.quarkusFunctionHandler,1700,false,configuration);
+    }   
 
     Version setupSnapStart(IFunction function) {
         var defaultChild = function.getNode().getDefaultChild();
@@ -61,13 +61,13 @@ public final class QuarkusLambda extends Construct {
         .build();
     }
 
-    IFunction createFunction(String functionName, String functionHandler, Map<String, String> configuration, int memory,
+    IFunction createFunction(String functionZip,String functionName, String functionHandler, Map<String, String> configuration, int memory,
             int timeout,boolean snapStart) {
         var architecture = snapStart?Architecture.X86_64:Architecture.ARM_64;
         return Function.Builder.create(this, functionName)
                 .runtime(Runtime.JAVA_17)
                 .architecture(architecture)
-                .code(Code.fromAsset("../lambda/target/function.zip"))
+                .code(Code.fromAsset(functionZip))
                 .handler(functionHandler)
                 .memorySize(memory)
                 .functionName(functionName)

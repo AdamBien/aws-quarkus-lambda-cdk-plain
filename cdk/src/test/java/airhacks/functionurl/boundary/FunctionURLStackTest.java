@@ -18,7 +18,9 @@ public class FunctionURLStackTest {
     @Test
     public void functionURLSynth() throws IOException {
         App app = new App();
-        var stack = new FunctionURLStack(app, "function-url-stack",true);
+        var stack = new FunctionURLStack.Builder(app, "function-url")
+        .functionName("functionurl-test")
+        .build();
 
         // synthesize the stack to a CloudFormation template
         var actual = JSON.valueToTree(app.synth().getStackArtifact(stack.getArtifactId()).getTemplate());

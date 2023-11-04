@@ -8,23 +8,22 @@ import software.amazon.awscdk.Environment;
 import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.Tags;
 
-
-
 public interface CDKApp {
 
     static void main(String... args) {
 
-            var app = new App();
-            var appName = "quarkus-lambda";
+        var app = new App();
+        var appName = "quarkus-lambda";
 
-            Tags.of(app).add("project", "MicroProfile with Quarkus on AWS Lambda");
-            Tags.of(app).add("environment","development");
-            Tags.of(app).add("application", appName);
+        Tags.of(app).add("project", "MicroProfile with Quarkus on AWS Lambda");
+        Tags.of(app).add("environment", "development");
+        Tags.of(app).add("application", appName);
 
-            var snapStart = false;
-            new FunctionURLStack(app,appName,snapStart);
-            //new LambdaApiGatewayStack(app, appName);
-            //new LambdaAlbStack(app,appName);
-            app.synth();
-        }
+        new FunctionURLStack.Builder(app, appName)
+                .functionName("airhacks")
+                .build();
+        // new LambdaApiGatewayStack(app, appName);
+        // new LambdaAlbStack(app,appName);
+        app.synth();
+    }
 }

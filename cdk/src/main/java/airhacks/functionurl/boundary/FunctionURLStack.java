@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Objects;
 
+import airhacks.ConventionalDefaults;
 import airhacks.lambda.control.QuarkusLambda;
 import software.amazon.awscdk.CfnOutput;
 import software.amazon.awscdk.Stack;
@@ -20,9 +21,9 @@ public class FunctionURLStack extends Stack {
         String stackId;
         boolean snapStart = false;
         String functionName;
-        String functionHandler = "io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest";;
+        String functionHandler = ConventionalDefaults.quarkusFunctionHandler;
         Map<String, String> configuration = Map.of();
-        String functionZipLocation;
+        String functionZipLocation = ConventionalDefaults.functionZip;
         final int ONE_CPU = 1700;
         int ram = ONE_CPU;
 
@@ -108,8 +109,9 @@ public class FunctionURLStack extends Stack {
 
     public FunctionURLStack(Builder builder) {
         super(builder.construct, builder.stackId);
-
-        var quarkusLambda = new QuarkusLambda(this, builder.functionName,builder.snapStart,builder.configuration);
+        var quarkusLambda = new QuarkusLambda(this, builder.functionZipLocation, builder.functionName,
+                builder.functionHandler, builder.ram, builder.snapStart,
+                builder.configuration);
         var function = quarkusLambda.getFunction();
         var functionUrl = function.addFunctionUrl(FunctionUrlOptions.builder()
                 .authType(FunctionUrlAuthType.NONE)
