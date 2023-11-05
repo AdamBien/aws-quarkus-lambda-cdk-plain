@@ -19,9 +19,9 @@ public interface CDKApp {
         Tags.of(app).add("environment", "development");
         Tags.of(app).add("application", appName);
 
-        new FunctionURLStack.Builder(app, appName)
+        var functionURLStack = new InfrastructureBuilder(app, appName)
                 .functionName("airhacks")
-                .build();
+                .buildFunctionURLStack();
         // new LambdaApiGatewayStack(app, appName);
         // new LambdaAlbStack(app,appName);
         app.synth();
