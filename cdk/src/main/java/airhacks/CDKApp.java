@@ -20,7 +20,7 @@ public interface CDKApp {
         Tags.of(app).add("application", appName);
 
         var functionURLStack = new InfrastructureBuilder(app, appName)
-                .functionName("airhacks")
+                .functionName("airhacks_QuarkusOnLambda")
                 .buildFunctionURLStack();
         // new LambdaApiGatewayStack(app, appName);
         // new LambdaAlbStack(app,appName);
