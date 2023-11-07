@@ -19,6 +19,7 @@ public class InfrastructureBuilder {
     private String functionZipLocation = ConventionalDefaults.functionZip;
     final int ONE_CPU = 1700;
     private int ram = ONE_CPU;
+    private int timeout = ConventionalDefaults.lambdaTimeout;
 
     public InfrastructureBuilder(Construct construct, String stackNamePrefix) {
         this.construct = construct;
@@ -37,6 +38,11 @@ public class InfrastructureBuilder {
 
     public InfrastructureBuilder ram(int ram) {
         this.ram = ram;
+        return this;
+    }
+
+    public InfrastructureBuilder timeout(int timeout) {
+        this.timeout = timeout;
         return this;
     }
 
@@ -127,5 +133,9 @@ public class InfrastructureBuilder {
 
     public int ram() {
         return ram;
+    }
+
+    public int timeout(){
+        return this.timeout;
     }
 }

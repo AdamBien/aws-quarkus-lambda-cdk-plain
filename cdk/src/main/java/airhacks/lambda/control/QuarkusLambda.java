@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import airhacks.ConventionalDefaults;
-import airhacks.alb.boundary.LambdaAlbStack;
 import software.amazon.awscdk.Duration;
 import software.amazon.awscdk.services.lambda.Alias;
 import software.amazon.awscdk.services.lambda.Architecture;
@@ -19,13 +18,12 @@ import software.constructs.Construct;
 
 public final class QuarkusLambda extends Construct {
 
-    static int timeout = 10;
     static Map<String,String> RUNTIME_CONFIGURATION = Map.of(
             "JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1");
 
     IFunction function;
 
-    public QuarkusLambda(Construct scope, String functionZip,String functionName,String lambdaHandler, int ramInMb,boolean snapStart,Map<String,String> applicationConfiguration) {
+    public QuarkusLambda(Construct scope, String functionZip,String functionName,String lambdaHandler, int ramInMb,boolean snapStart,int timeout,Map<String,String> applicationConfiguration) {
         super(scope, "QuarkusLambda");
         var configuration = mergeWithRuntimeConfiguration(applicationConfiguration);
         this.function = createFunction(functionZip,functionName, lambdaHandler, configuration, ramInMb, timeout,snapStart);
@@ -36,7 +34,7 @@ public final class QuarkusLambda extends Construct {
     }
 
     public QuarkusLambda(Construct scope, String functionName,Map<String, String> configuration) {
-        this(scope,ConventionalDefaults.functionZip,functionName,ConventionalDefaults.quarkusFunctionHandler,1700,false,configuration);
+        this(scope,ConventionalDefaults.functionZip,functionName,ConventionalDefaults.quarkusFunctionHandler,1700,false,ConventionalDefaults.lambdaTimeout,configuration);
     }   
 
     Version setupSnapStart(IFunction function) {

@@ -14,6 +14,7 @@ public class FunctionURLStack extends Stack {
         super(builder.construct(), builder.stackId());
         var quarkusLambda = new QuarkusLambda(this, builder.functionZipLocation(), builder.functionName(),
                 builder.functionHandler(), builder.ram(), builder.isSnapStart(),
+                builder.timeout(),
                 builder.configuration());
         var function = quarkusLambda.getFunction();
         var functionUrl = function.addFunctionUrl(FunctionUrlOptions.builder()
