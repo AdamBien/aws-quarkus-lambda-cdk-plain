@@ -6,10 +6,12 @@ import java.util.Map;
 import java.util.Objects;
 
 import airhacks.functionurl.boundary.FunctionURLStack;
+import software.amazon.awscdk.services.lambda.FunctionUrlAuthType;
 import software.constructs.Construct;
 
 public class InfrastructureBuilder {
 
+    private FunctionUrlAuthType authType = FunctionUrlAuthType.NONE;
     private Construct construct;
     private String stackId;
     private boolean snapStart = false;
@@ -58,6 +60,11 @@ public class InfrastructureBuilder {
 
     public InfrastructureBuilder withTwoCPUs() {
         this.ram = ONE_CPU * 2;
+        return this;
+    }
+
+    public InfrastructureBuilder withIAMAuth(){
+        this.authType = FunctionUrlAuthType.AWS_IAM;
         return this;
     }
 
@@ -137,5 +144,9 @@ public class InfrastructureBuilder {
 
     public int timeout(){
         return this.timeout;
+    }
+
+    public FunctionUrlAuthType functionUrlAuthType() {
+        return this.authType;
     }
 }

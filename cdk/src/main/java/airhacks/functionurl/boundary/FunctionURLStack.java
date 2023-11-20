@@ -4,7 +4,6 @@ import airhacks.InfrastructureBuilder;
 import airhacks.lambda.control.QuarkusLambda;
 import software.amazon.awscdk.CfnOutput;
 import software.amazon.awscdk.Stack;
-import software.amazon.awscdk.services.lambda.FunctionUrlAuthType;
 import software.amazon.awscdk.services.lambda.FunctionUrlOptions;
 
 public class FunctionURLStack extends Stack {
@@ -18,7 +17,7 @@ public class FunctionURLStack extends Stack {
                 builder.configuration());
         var function = quarkusLambda.getFunction();
         var functionUrl = function.addFunctionUrl(FunctionUrlOptions.builder()
-                .authType(FunctionUrlAuthType.NONE)
+                .authType(builder.functionUrlAuthType())
                 .build());
         CfnOutput.Builder.create(this, "FunctionURLOutput").value(functionUrl.getUrl()).build();
 
