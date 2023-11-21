@@ -22,7 +22,8 @@ public class FunctionURLStackTest {
         App app = new App();
         var stack = new InfrastructureBuilder(app, "function-url")
         .functionName("functionurl-test")
-        .buildFunctionURLStack();
+        .buildFunctionURLBuilder()
+        .build();
 
         // synthesize the stack to a CloudFormation template
         var actual = JSON.valueToTree(app.synth().getStackArtifact(stack.getArtifactId()).getTemplate());

@@ -6,13 +6,14 @@ import java.util.Map;
 import java.util.Objects;
 
 import airhacks.apigateway.boundary.LambdaApiGatewayStack;
+import airhacks.apigateway.boundary.LambdaApiGatewayStack.LambdaApiGatewayBuilder;
 import airhacks.functionurl.boundary.FunctionURLStack;
+import airhacks.functionurl.boundary.FunctionURLStack.FunctionURLBuilder;
 import software.amazon.awscdk.services.lambda.FunctionUrlAuthType;
 import software.constructs.Construct;
 
 public class InfrastructureBuilder {
 
-    private FunctionUrlAuthType authType = FunctionUrlAuthType.NONE;
     private Construct construct;
     private String stackId;
     private boolean snapStart = false;
@@ -64,10 +65,6 @@ public class InfrastructureBuilder {
         return this;
     }
 
-    public InfrastructureBuilder withIAMAuth() {
-        this.authType = FunctionUrlAuthType.AWS_IAM;
-        return this;
-    }
 
     /**
      * 
@@ -95,16 +92,16 @@ public class InfrastructureBuilder {
         return this;
     }
 
-    public FunctionURLStack buildFunctionURLStack() {
+    public FunctionURLBuilder buildFunctionURLBuilder() {
         Objects.requireNonNull(this.functionName, "Function name is required");
         appendToId("function-url-stack");
-        return new FunctionURLStack(this);
+        return new FunctionURLBuilder(this);
     }
 
-    public LambdaApiGatewayStack buildLambdaApiGatewayStack() {
+    public LambdaApiGatewayBuilder buildLambdaApiGatewayBuilder() {
         Objects.requireNonNull(this.functionName, "Function name is required");
         appendToId("lambda-apigateway-stack");
-        return new LambdaApiGatewayStack(this);
+        return new LambdaApiGatewayBuilder(this);
     }
 
     static boolean verifyFunctionZip(String functionZipFile) {
@@ -158,7 +155,4 @@ public class InfrastructureBuilder {
         return this.timeout;
     }
 
-    public FunctionUrlAuthType functionUrlAuthType() {
-        return this.authType;
-    }
 }

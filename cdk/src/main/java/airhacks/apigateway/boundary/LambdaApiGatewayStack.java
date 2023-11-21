@@ -14,7 +14,7 @@ public class LambdaApiGatewayStack extends Stack {
         private InfrastructureBuilder builder;
         private boolean httpApiGateway;
         
-        LambdaApiGatewayBuilder(InfrastructureBuilder builder){
+        public LambdaApiGatewayBuilder(InfrastructureBuilder builder){
             this.builder = builder;
         }
 
