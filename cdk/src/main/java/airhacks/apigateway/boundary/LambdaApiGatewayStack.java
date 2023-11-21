@@ -1,11 +1,9 @@
 package airhacks.apigateway.boundary;
 
-import java.util.Map;
-
+import airhacks.InfrastructureBuilder;
 import airhacks.apigateway.control.APIGatewayIntegrations;
 import airhacks.lambda.control.QuarkusLambda;
 import software.amazon.awscdk.Stack;
-import software.constructs.Construct;
 
 public class LambdaApiGatewayStack extends Stack {
 
@@ -13,13 +11,10 @@ public class LambdaApiGatewayStack extends Stack {
     static boolean HTTP_API_GATEWAY_INTEGRATION = true;
     static String FUNCTION_NAME  = "airhacks_lambda_gretings_boundary_Greetings";
 
-    public LambdaApiGatewayStack(Construct scope, String id) {
-        super(scope, id+"-apigateway-stack");
-    
-        var configuration = Map.of(
-            "message", "hello, quarkus as AWS Lambda");
+    public LambdaApiGatewayStack(InfrastructureBuilder builder) {
+        super(builder.construct(), builder.stackId());    
 
-        var quarkuLambda = new QuarkusLambda(this,FUNCTION_NAME,configuration);
+        var quarkuLambda = new QuarkusLambda(this,FUNCTION_NAME,builder.configuration());
         new APIGatewayIntegrations(this, HTTP_API_GATEWAY_INTEGRATION, quarkuLambda.getFunction());
     }
 

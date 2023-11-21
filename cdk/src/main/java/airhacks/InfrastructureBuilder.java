@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Objects;
 
+import airhacks.apigateway.boundary.LambdaApiGatewayStack;
 import airhacks.functionurl.boundary.FunctionURLStack;
 import software.amazon.awscdk.services.lambda.FunctionUrlAuthType;
 import software.constructs.Construct;
@@ -25,7 +26,7 @@ public class InfrastructureBuilder {
 
     public InfrastructureBuilder(Construct construct, String stackNamePrefix) {
         this.construct = construct;
-        this.stackId = stackNamePrefix.toLowerCase() + "-function-url-stack";
+        this.stackId = stackNamePrefix.toLowerCase();
     }
 
     public InfrastructureBuilder functionName(String functionName) {
@@ -63,7 +64,7 @@ public class InfrastructureBuilder {
         return this;
     }
 
-    public InfrastructureBuilder withIAMAuth(){
+    public InfrastructureBuilder withIAMAuth() {
         this.authType = FunctionUrlAuthType.AWS_IAM;
         return this;
     }
@@ -96,7 +97,14 @@ public class InfrastructureBuilder {
 
     public FunctionURLStack buildFunctionURLStack() {
         Objects.requireNonNull(this.functionName, "Function name is required");
+        appendToId("function-url-stack");
         return new FunctionURLStack(this);
+    }
+
+    public LambdaApiGatewayStack buildLambdaApiGatewayStack() {
+        Objects.requireNonNull(this.functionName, "Function name is required");
+        appendToId("lambda-apigateway-stack");
+        return new LambdaApiGatewayStack(this);
     }
 
     static boolean verifyFunctionZip(String functionZipFile) {
@@ -116,6 +124,10 @@ public class InfrastructureBuilder {
 
     public String stackId() {
         return stackId;
+    }
+
+    void appendToId(String ending) {
+        this.stackId = stackId + "-" + ending;
     }
 
     public boolean isSnapStart() {
@@ -142,7 +154,7 @@ public class InfrastructureBuilder {
         return ram;
     }
 
-    public int timeout(){
+    public int timeout() {
         return this.timeout;
     }
 
