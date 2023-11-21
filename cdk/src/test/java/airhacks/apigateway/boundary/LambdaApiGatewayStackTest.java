@@ -21,7 +21,7 @@ public class LambdaApiGatewayStackTest {
         App app = new App();
         var stack = new InfrastructureBuilder(app, "function-url")
                 .functionName("functionurl-test")
-                .buildLambdaApiGatewayBuilder()
+                .lambdaApiGatewayBuilder()
                 .build();
 
         // synthesize the stack to a CloudFormation template

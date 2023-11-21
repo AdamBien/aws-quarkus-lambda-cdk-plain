@@ -21,7 +21,7 @@ public interface CDKApp {
 
         var functionURLStack = new InfrastructureBuilder(app, appName)
                 .functionName("airhacks_QuarkusOnLambda")
-                .buildFunctionURLBuilder()
+                .functionURLBuilder()
                 .build();
         // new LambdaApiGatewayStack(app, appName);
         // new LambdaAlbStack(app,appName);
