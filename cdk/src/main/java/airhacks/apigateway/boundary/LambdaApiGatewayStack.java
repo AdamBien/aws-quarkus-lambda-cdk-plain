@@ -4,6 +4,7 @@ import airhacks.InfrastructureBuilder;
 import airhacks.apigateway.control.APIGatewayIntegrations;
 import airhacks.lambda.control.QuarkusLambda;
 import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.services.ec2.IVpc;
 import software.constructs.Construct;
 
 public class LambdaApiGatewayStack extends Stack {
@@ -36,13 +37,17 @@ public class LambdaApiGatewayStack extends Stack {
         }
 
 
-
         InfrastructureBuilder infrastructureBuilder(){
             return this.builder;
         }
 
+        public boolean isHttpApiGateway(){
+            return this.httpApiGateway;
+        }
 
-        boolean privateVPCVisibility(){
+
+
+        public boolean isPrivateVPCVisibility(){
             return this.privateVPCAccessibility;
         }
 
@@ -70,6 +75,6 @@ public class LambdaApiGatewayStack extends Stack {
         super(builder.construct(), builder.stackId());    
         var infrastructureBuilder = builder.infrastructureBuilder();
         var quarkuLambda = new QuarkusLambda(this,infrastructureBuilder.functionName(),infrastructureBuilder.configuration());
-        new APIGatewayIntegrations(this, builder.httpApiGateway, quarkuLambda.getFunction());
+        new APIGatewayIntegrations(this, builder, quarkuLambda.getFunction());
     }
 }
