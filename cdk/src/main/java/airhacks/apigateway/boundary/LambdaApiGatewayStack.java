@@ -8,7 +8,6 @@ import software.constructs.Construct;
 
 public class LambdaApiGatewayStack extends Stack {
 
-    static String FUNCTION_NAME  = "airhacks_lambda_gretings_boundary_Greetings";
 
     public static class LambdaApiGatewayBuilder{
         private InfrastructureBuilder builder;
