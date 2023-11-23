@@ -1,9 +1,15 @@
 package airhacks.apigateway.control;
 
+import java.util.List;
+
 import software.amazon.awscdk.CfnOutput;
+import software.amazon.awscdk.services.apigateway.EndpointConfiguration;
+import software.amazon.awscdk.services.apigateway.EndpointType;
 import software.amazon.awscdk.services.apigateway.LambdaRestApi;
+import software.amazon.awscdk.services.apigateway.VpcLink;
 import software.amazon.awscdk.services.apigatewayv2.alpha.HttpApi;
 import software.amazon.awscdk.services.apigatewayv2.integrations.alpha.HttpLambdaIntegration;
+import software.amazon.awscdk.services.ec2.IVpc;
 import software.amazon.awscdk.services.lambda.IFunction;
 import software.constructs.Construct;
 
@@ -26,7 +32,27 @@ public class APIGatewayIntegrations extends Construct {
      * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-rest-api.html
      */
     void integrateWithRestApiGateway(IFunction function) {
-        var apiGateway = LambdaRestApi.Builder.create(this, "RestApiGateway").handler(function).build();
+        var apiGateway = LambdaRestApi.Builder
+                .create(this, "RestApiGateway")
+                .handler(function)
+                .build();
+        CfnOutput.Builder.create(this, "RestApiGatewayUrlOutput").value(apiGateway.getUrl()).build();
+
+    }
+
+    /**
+     * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-private-apis.html
+     */
+    void integrateWithPrivateRestApiGateway(IFunction function, IVpc vpc) {
+        var apiGateway = LambdaRestApi.Builder
+                .create(this, "RestApiGateway")
+                .endpointConfiguration(EndpointConfiguration
+                        .builder()
+                        .types(List.of(EndpointType.PRIVATE))
+                        .build())
+                .handler(function)
+                .build();
+
         CfnOutput.Builder.create(this, "RestApiGatewayUrlOutput").value(apiGateway.getUrl()).build();
 
     }
