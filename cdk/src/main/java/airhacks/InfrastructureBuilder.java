@@ -98,7 +98,7 @@ public class InfrastructureBuilder {
         return new FunctionURLBuilder(this);
     }
 
-    public LambdaApiGatewayBuilder lambdaApiGatewayBuilder() {
+    public LambdaApiGatewayBuilder apiGatewayBuilder() {
         Objects.requireNonNull(this.functionName, "Function name is required");
         appendToId("lambda-apigateway-stack");
         return new LambdaApiGatewayBuilder(this);
