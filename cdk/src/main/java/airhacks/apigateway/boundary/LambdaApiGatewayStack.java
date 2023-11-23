@@ -13,6 +13,7 @@ public class LambdaApiGatewayStack extends Stack {
         private InfrastructureBuilder builder;
         private boolean httpApiGateway;
         private boolean privateVPCAccessibility;
+        private String vpcId;
         
         public LambdaApiGatewayBuilder(InfrastructureBuilder builder){
             this.builder = builder;
@@ -28,6 +29,13 @@ public class LambdaApiGatewayStack extends Stack {
             return this;
         }
 
+        LambdaApiGatewayBuilder withPrivateVPCAccessibility(String vpcId){
+            this.vpcId = vpcId;
+            this.privateVPCAccessibility = true;
+            return this;
+        }
+
+
 
         InfrastructureBuilder infrastructureBuilder(){
             return this.builder;
@@ -41,6 +49,10 @@ public class LambdaApiGatewayStack extends Stack {
 
         public Construct construct(){
             return this.builder.construct();
+        }
+
+        public String vpcId(){
+            return this.vpcId;
         }
 
 
@@ -60,9 +72,4 @@ public class LambdaApiGatewayStack extends Stack {
         var quarkuLambda = new QuarkusLambda(this,infrastructureBuilder.functionName(),infrastructureBuilder.configuration());
         new APIGatewayIntegrations(this, builder.httpApiGateway, quarkuLambda.getFunction());
     }
-
-
-
-
-
 }
