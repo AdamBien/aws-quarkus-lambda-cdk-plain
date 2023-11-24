@@ -26,18 +26,18 @@
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>aws-cdk-lib</artifactId>
-            <version>2.110.0</version>
+            <version>2.110.1</version>
         </dependency>
         <!-- alpha versions for HttpApi gateway integration-->
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>apigatewayv2-alpha</artifactId>
-            <version>2.110.0-alpha.0</version>
+            <version>2.110.1-alpha.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>apigatewayv2-integrations-alpha</artifactId>
-            <version>2.110.0-alpha.0</version>
+            <version>2.110.1-alpha.0</version>
         </dependency>
         <dependency>
             <groupId>software.constructs</groupId>
@@ -47,13 +47,13 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.9.3</version>
+            <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.9.3</version>
+            <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -65,8 +65,8 @@
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <java.version>17</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <java.version>21</java.version>
     </properties>
 </project>
