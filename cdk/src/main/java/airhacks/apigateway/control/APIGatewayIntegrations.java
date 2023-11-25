@@ -34,7 +34,7 @@ public class APIGatewayIntegrations extends Construct {
     void integrateWithRestApiGateway(IFunction function, LambdaApiGatewayBuilder builder) {
         if (builder.isPrivateVPCVisibility()) {
             var vpc = this.getVPC();
-            this.integrateWithPrivateRestApiGateway(function, vpc);
+            this.integrateWithPrivateRestApiGateway(function, vpc);            
             return;
 
         }

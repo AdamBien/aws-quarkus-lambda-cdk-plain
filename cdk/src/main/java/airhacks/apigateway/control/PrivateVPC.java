@@ -1,5 +1,6 @@
 package airhacks.apigateway.control;
 
+import software.amazon.awscdk.CfnOutput;
 import software.amazon.awscdk.services.ec2.IpAddresses;
 import software.amazon.awscdk.services.ec2.Vpc;
 import software.constructs.Construct;
@@ -18,9 +19,13 @@ public class PrivateVPC extends Construct {
                 .createInternetGateway(false)
                 .maxAzs(2)
                 .build();
+        CfnOutput.Builder.create(this, "PrivateVpcIdOutput")
+                .value(this.vpc.getVpcId())
+                .build();
+
     }
 
-    public Vpc getVpc(){
+    public Vpc getVpc() {
         return this.vpc;
     }
 
