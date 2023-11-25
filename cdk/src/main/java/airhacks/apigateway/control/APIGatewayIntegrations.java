@@ -23,7 +23,7 @@ public class APIGatewayIntegrations extends Construct {
         if (builder.isHttpApiGateway())
             integrateWithHTTPApiGateway(function);
         else
-            integrateWithRestApiGateway(function,builder);
+            integrateWithRestApiGateway(function, builder);
 
         CfnOutput.Builder.create(this, "FunctionArnOutput").value(function.getFunctionArn()).build();
     }
@@ -32,7 +32,7 @@ public class APIGatewayIntegrations extends Construct {
      * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-rest-api.html
      */
     void integrateWithRestApiGateway(IFunction function, LambdaApiGatewayBuilder builder) {
-        if(builder.isPrivateVPCVisibility()){
+        if (builder.isPrivateVPCVisibility()) {
             var vpc = this.getVPC();
             this.integrateWithPrivateRestApiGateway(function, vpc);
             return;
@@ -46,7 +46,7 @@ public class APIGatewayIntegrations extends Construct {
 
     }
 
-    Vpc getVPC(){
+    Vpc getVPC() {
         var privateVPC = new PrivateVPC(this);
         return privateVPC.getVpc();
     }
@@ -62,6 +62,7 @@ public class APIGatewayIntegrations extends Construct {
                         .types(List.of(EndpointType.PRIVATE))
                         .build())
                 .handler(function)
+                .policy(IAMPolicy.restAPI(vpc))
                 .build();
 
         CfnOutput.Builder.create(this, "RestApiGatewayUrlOutput").value(apiGateway.getUrl()).build();
