@@ -11,6 +11,8 @@ import software.amazon.awscdk.services.apigateway.VpcLink;
 import software.amazon.awscdk.services.apigatewayv2.alpha.HttpApi;
 import software.amazon.awscdk.services.apigatewayv2.integrations.alpha.HttpLambdaIntegration;
 import software.amazon.awscdk.services.ec2.IVpc;
+import software.amazon.awscdk.services.ec2.InterfaceVpcEndpoint;
+import software.amazon.awscdk.services.ec2.InterfaceVpcEndpointAwsService;
 import software.amazon.awscdk.services.ec2.Vpc;
 import software.amazon.awscdk.services.lambda.IFunction;
 import software.constructs.Construct;
@@ -34,7 +36,7 @@ public class APIGatewayIntegrations extends Construct {
     void integrateWithRestApiGateway(IFunction function, LambdaApiGatewayBuilder builder) {
         if (builder.isPrivateVPCVisibility()) {
             var vpc = this.getVPC();
-            this.integrateWithPrivateRestApiGateway(function, vpc);            
+            this.integrateWithPrivateRestApiGateway(function, vpc);
             return;
 
         }
@@ -42,6 +44,7 @@ public class APIGatewayIntegrations extends Construct {
                 .create(this, "RestApiGateway")
                 .handler(function)
                 .build();
+
         CfnOutput.Builder.create(this, "RestApiGatewayUrlOutput").value(apiGateway.getUrl()).build();
 
     }
@@ -63,6 +66,12 @@ public class APIGatewayIntegrations extends Construct {
                         .build())
                 .handler(function)
                 .policy(IAMPolicy.restAPI(vpc))
+                .build();
+
+        var apiGatewayEndpoint = InterfaceVpcEndpoint.Builder
+                .create(this, "ApiGatewayEndpoint")
+                .vpc(vpc)
+                .service(InterfaceVpcEndpointAwsService.APIGATEWAY)
                 .build();
 
         CfnOutput.Builder.create(this, "RestApiGatewayUrlOutput").value(apiGateway.getUrl()).build();
