@@ -20,17 +20,17 @@ public class LambdaApiGatewayStack extends Stack {
             this.builder = builder;
         }
 
-        LambdaApiGatewayBuilder withRestAPI(){
+        public LambdaApiGatewayBuilder withRestAPI(){
             this.httpApiGateway = false;
             return this;
         }
 
-        LambdaApiGatewayBuilder withPrivateVPCAccessibility(){
+        public LambdaApiGatewayBuilder withPrivateVPCAccessibility(){
             this.privateVPCAccessibility = true;
             return this;
         }
 
-        LambdaApiGatewayBuilder withPrivateVPCAccessibility(String vpcId){
+        public LambdaApiGatewayBuilder withPrivateVPCAccessibility(String vpcId){
             this.vpcId = vpcId;
             this.privateVPCAccessibility = true;
             return this;
