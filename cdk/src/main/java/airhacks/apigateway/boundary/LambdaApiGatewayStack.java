@@ -66,8 +66,12 @@ public class LambdaApiGatewayStack extends Stack {
     public LambdaApiGatewayStack(LambdaApiGatewayBuilder builder) {
         super(builder.construct(), builder.stackId());
         var infrastructureBuilder = builder.infrastructureBuilder();
-        var quarkuLambda = new QuarkusLambda(this, infrastructureBuilder.functionName(),
+        var quarkusLambda = new QuarkusLambda(this, infrastructureBuilder.functionZipLocation(),
+                infrastructureBuilder.functionName(),
+                infrastructureBuilder.functionHandler(), infrastructureBuilder.ram(),
+                infrastructureBuilder.isSnapStart(),
+                infrastructureBuilder.timeout(),
                 infrastructureBuilder.configuration());
-        new APIGatewayIntegrations(this, builder, quarkuLambda.getFunction());
+        new APIGatewayIntegrations(this, builder, quarkusLambda.getFunction());
     }
 }
