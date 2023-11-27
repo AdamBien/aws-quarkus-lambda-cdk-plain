@@ -5,11 +5,8 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Objects;
 
-import airhacks.apigateway.boundary.LambdaApiGatewayStack;
 import airhacks.apigateway.boundary.LambdaApiGatewayStack.LambdaApiGatewayBuilder;
-import airhacks.functionurl.boundary.FunctionURLStack;
 import airhacks.functionurl.boundary.FunctionURLStack.FunctionURLBuilder;
-import software.amazon.awscdk.services.lambda.FunctionUrlAuthType;
 import software.constructs.Construct;
 
 public class InfrastructureBuilder {

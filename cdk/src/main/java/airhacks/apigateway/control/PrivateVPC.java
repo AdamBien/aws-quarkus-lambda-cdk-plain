@@ -9,13 +9,14 @@ public class PrivateVPC extends Construct {
 
     Vpc vpc;
 
-    public PrivateVPC(Construct scope) {
+    public PrivateVPC(Construct scope,String vpcName) {
         super(scope, "PrivateVPC");
         this.vpc = Vpc.Builder.create(this, "PrivateVPC")
                 .ipAddresses(IpAddresses.cidr("10.0.0.0/16"))
                 .enableDnsHostnames(true)
                 .enableDnsSupport(true)
                 .natGateways(0)
+                .vpcName(vpcName)
                 .createInternetGateway(false)
                 .maxAzs(2)
                 .build();

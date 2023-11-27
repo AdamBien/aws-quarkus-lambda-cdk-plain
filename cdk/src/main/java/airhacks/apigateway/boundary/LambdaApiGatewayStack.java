@@ -37,6 +37,10 @@ public class LambdaApiGatewayStack extends Stack {
             return this.builder;
         }
 
+        public String appName(){
+            return this.builder.stackId();
+        }
+
         public boolean isHttpApiGateway() {
             return this.httpApiGateway;
         }
