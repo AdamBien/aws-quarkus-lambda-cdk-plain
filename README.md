@@ -55,7 +55,7 @@ Function createFunction(String functionName,String functionHandler,
     Map<String,String> configuration, int memory, int maximumConcurrentExecution, int timeout) {
 
         return Function.Builder.create(this, functionName)
-                .runtime(Runtime.JAVA_11)
+                .runtime(Runtime.JAVA_21)
                 .code(Code.fromAsset("../lambda/target/function.zip"))
                 .handler(functionHandler)
                 .memorySize(memory)
