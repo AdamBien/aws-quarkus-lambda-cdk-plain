@@ -16,6 +16,7 @@ public class LambdaApiGatewayStack extends Stack {
 
         public LambdaApiGatewayBuilder(InfrastructureBuilder builder) {
             this.builder = builder;
+            this.httpApiGateway = true;
         }
 
         public LambdaApiGatewayBuilder withRestAPI() {
