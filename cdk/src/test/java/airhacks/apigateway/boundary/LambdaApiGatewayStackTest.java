@@ -7,6 +7,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import airhacks.FunctionZip;
 import airhacks.InfrastructureBuilder;
 
 import org.junit.jupiter.api.Test;
@@ -17,10 +18,12 @@ public class LambdaApiGatewayStackTest {
     private final static ObjectMapper JSON = new ObjectMapper().configure(SerializationFeature.INDENT_OUTPUT, true);
 
     @Test
-    public void testStack() throws IOException {
+    public void stack() throws IOException {
+        var mockFunctionZip = FunctionZip.createEmptyFunctionZip();
         App app = new App();
         var stack = new InfrastructureBuilder(app, "function-url")
                 .functionName("functionurl-test")
+                .functionZip(mockFunctionZip)
                 .apiGatewayBuilder()
                 .build();
 

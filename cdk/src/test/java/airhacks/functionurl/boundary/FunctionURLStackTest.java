@@ -7,6 +7,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import airhacks.FunctionZip;
 import airhacks.InfrastructureBuilder;
 
 import org.junit.jupiter.api.Test;
@@ -18,12 +19,14 @@ public class FunctionURLStackTest {
     private final static ObjectMapper JSON = new ObjectMapper().configure(SerializationFeature.INDENT_OUTPUT, true);
 
     @Test
-    public void functionURLSynth() throws IOException {
+    void stack() throws IOException {
+        var mockFunctionZip = FunctionZip.createEmptyFunctionZip();
         App app = new App();
         var stack = new InfrastructureBuilder(app, "function-url")
-        .functionName("functionurl-test")
-        .functionURLBuilder()
-        .build();
+                .functionName("functionurl-test")
+                .functionZip(mockFunctionZip)
+                .functionURLBuilder()
+                .build();
 
         // synthesize the stack to a CloudFormation template
         var actual = JSON.valueToTree(app.synth().getStackArtifact(stack.getArtifactId()).getTemplate());

@@ -1,11 +1,6 @@
 package airhacks;
 
-import airhacks.alb.boundary.LambdaAlbStack;
-import airhacks.apigateway.boundary.LambdaApiGatewayStack;
-import airhacks.functionurl.boundary.FunctionURLStack;
 import software.amazon.awscdk.App;
-import software.amazon.awscdk.Environment;
-import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.Tags;
 
 public interface CDKApp {
@@ -19,12 +14,10 @@ public interface CDKApp {
         Tags.of(app).add("environment", "development");
         Tags.of(app).add("application", appName);
 
-        var functionURLStack = new InfrastructureBuilder(app, appName)
+        var stack = new InfrastructureBuilder(app, appName)
                 .functionName("airhacks_QuarkusOnLambda")
                 .functionURLBuilder()
-                .build();
-        // new LambdaApiGatewayStack(app, appName);
-        // new LambdaAlbStack(app,appName);
+                .build();        
         app.synth();
     }
 }
