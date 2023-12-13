@@ -26,7 +26,7 @@ public final class QuarkusLambda extends Construct {
     public QuarkusLambda(Construct scope, String functionZip,String functionName,String lambdaHandler, int ramInMb,boolean snapStart,int timeout,Map<String,String> applicationConfiguration) {
         super(scope, "QuarkusLambda");
         var configuration = mergeWithRuntimeConfiguration(applicationConfiguration);
-        this.function = createFunction(functionZip,functionName, lambdaHandler, configuration, ramInMb, timeout,snapStart);
+        this.function = createFunction(this,functionZip,functionName, lambdaHandler, configuration, ramInMb, timeout,snapStart);
         if (snapStart){ 
             var version = setupSnapStart(this.function);
             this.function = createAlias(version);
@@ -59,10 +59,10 @@ public final class QuarkusLambda extends Construct {
         .build();
     }
 
-    IFunction createFunction(String functionZip,String functionName, String functionHandler, Map<String, String> configuration, int memory,
+    public static IFunction createFunction(Construct scope,String functionZip,String functionName, String functionHandler, Map<String, String> configuration, int memory,
             int timeout,boolean snapStart) {
         var architecture = snapStart?Architecture.X86_64:Architecture.ARM_64;
-        return Function.Builder.create(this, functionName)
+        return Function.Builder.create(scope, functionName)
                 .runtime(Runtime.JAVA_21)
                 .architecture(architecture)
                 .code(Code.fromAsset(functionZip))
