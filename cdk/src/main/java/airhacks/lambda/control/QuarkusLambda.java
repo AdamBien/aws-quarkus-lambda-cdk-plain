@@ -24,7 +24,7 @@ public final class QuarkusLambda extends Construct {
     IFunction function;
 
     public QuarkusLambda(Construct scope, String functionZip,String functionName,String lambdaHandler, int ramInMb,boolean snapStart,int timeout,Map<String,String> applicationConfiguration) {
-        super(scope, "QuarkusLambda");
+        super(scope, functionName+"Construct");
         var configuration = mergeWithRuntimeConfiguration(applicationConfiguration);
         this.function = createFunction(this,functionZip,functionName, lambdaHandler, configuration, ramInMb, timeout,snapStart);
         if (snapStart){ 
