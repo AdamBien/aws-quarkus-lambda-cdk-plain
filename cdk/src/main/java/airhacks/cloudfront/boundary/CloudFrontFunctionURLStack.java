@@ -8,6 +8,8 @@ import software.amazon.awscdk.services.cloudfront.AllowedMethods;
 import software.amazon.awscdk.services.cloudfront.BehaviorOptions;
 import software.amazon.awscdk.services.cloudfront.CachePolicy;
 import software.amazon.awscdk.services.cloudfront.Distribution;
+import software.amazon.awscdk.services.cloudfront.OriginAccessIdentity;
+import software.amazon.awscdk.services.cloudfront.OriginRequestPolicy;
 import software.amazon.awscdk.services.cloudfront.SecurityPolicyProtocol;
 import software.amazon.awscdk.services.cloudfront.ViewerProtocolPolicy;
 import software.amazon.awscdk.services.cloudfront.origins.FunctionUrlOrigin;
@@ -52,17 +54,23 @@ public class CloudFrontFunctionURLStack extends Stack {
                 .build());
         var functionURLOrigin = new FunctionUrlOrigin(functionUrl);
         var distribution = Distribution.Builder.create(this, "FunctionURLDistribution")
-                .minimumProtocolVersion(SecurityPolicyProtocol.SSL_V3)
+                .minimumProtocolVersion(SecurityPolicyProtocol.TLS_V1_2_2021)
                 .defaultBehavior(BehaviorOptions.builder()
                         .origin(functionURLOrigin)
+                        .viewerProtocolPolicy(ViewerProtocolPolicy.HTTPS_ONLY)
                         .allowedMethods(AllowedMethods.ALLOW_ALL)
-                        .viewerProtocolPolicy(ViewerProtocolPolicy.REDIRECT_TO_HTTPS)
                         .cachePolicy(CachePolicy.CACHING_DISABLED)
+                        .originRequestPolicy(OriginRequestPolicy.ALL_VIEWER)
                         .build())
+                /**
+                 * minimum policy only works with custom certificate
+                 * 
+                 */
+                .minimumProtocolVersion(SecurityPolicyProtocol.TLS_V1_2_2021)
                 .build();
         CfnOutput.Builder.create(this, "CloudFrontDistributionDomainNameOutput")
                 .value(distribution.getDistributionDomainName()).build();
-
+        CfnOutput.Builder.create(this, "FunctionURLOutput").value(functionUrl.getUrl()).build();
     }
 
 }
