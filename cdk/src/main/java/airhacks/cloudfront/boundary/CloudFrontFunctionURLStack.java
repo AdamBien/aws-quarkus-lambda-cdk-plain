@@ -18,12 +18,12 @@ import software.amazon.awscdk.services.lambda.FunctionUrlAuthType;
 import software.amazon.awscdk.services.lambda.FunctionUrlOptions;
 import software.constructs.Construct;
 
-public class FunctionURLCloudFrontStack extends Stack {
-    public static class FunctionURLBuilder {
+public class CloudFrontFunctionURLStack extends Stack {
+    public static class CloudFrontFunctionURLBuilder {
         private InfrastructureBuilder infrastructureBuilder;
         private FunctionUrlAuthType authType = FunctionUrlAuthType.NONE;
 
-        public FunctionURLBuilder(InfrastructureBuilder infrastructureBuilder) {
+        public CloudFrontFunctionURLBuilder(InfrastructureBuilder infrastructureBuilder) {
             this.infrastructureBuilder = infrastructureBuilder;
         }
 
@@ -35,13 +35,13 @@ public class FunctionURLCloudFrontStack extends Stack {
             return this.infrastructureBuilder.stackId();
         }
 
-        public FunctionURLCloudFrontStack build() {
-            return new FunctionURLCloudFrontStack(this);
+        public CloudFrontFunctionURLStack build() {
+            return new CloudFrontFunctionURLStack(this);
         }
 
     }
 
-    public FunctionURLCloudFrontStack(FunctionURLBuilder builder) {
+    public CloudFrontFunctionURLStack(CloudFrontFunctionURLBuilder builder) {
         super(builder.construct(), builder.stackId());
         var infrastructureBuilder = builder.infrastructureBuilder;
         var quarkusLambda = new QuarkusLambda(this, infrastructureBuilder.functionZipLocation(),

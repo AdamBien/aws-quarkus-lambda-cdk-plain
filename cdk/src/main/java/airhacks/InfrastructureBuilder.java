@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import airhacks.apigateway.boundary.LambdaApiGatewayStack.LambdaApiGatewayBuilder;
+import airhacks.cloudfront.boundary.CloudFrontFunctionURLStack.CloudFrontFunctionURLBuilder;
 import airhacks.functionurl.boundary.FunctionURLStack.FunctionURLBuilder;
 import software.constructs.Construct;
 
@@ -99,6 +100,12 @@ public class InfrastructureBuilder {
         Objects.requireNonNull(this.functionName, "Function name is required");
         appendToId("lambda-apigateway-stack");
         return new LambdaApiGatewayBuilder(this);
+    }
+
+    public CloudFrontFunctionURLBuilder cloudFrontFunctionURLBuilder() {
+        Objects.requireNonNull(this.functionName, "Function name is required");
+        appendToId("lambda-cloudfront-stack");
+        return new CloudFrontFunctionURLBuilder(this);
     }
 
     static boolean verifyFunctionZip(String functionZipFile) {
