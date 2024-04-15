@@ -59,7 +59,7 @@ public class CloudFrontFunctionURLStack extends Stack {
                         .viewerProtocolPolicy(ViewerProtocolPolicy.HTTPS_ONLY)
                         .allowedMethods(AllowedMethods.ALLOW_ALL)
                         .cachePolicy(CachePolicy.CACHING_DISABLED)
-                        .originRequestPolicy(OriginRequestPolicy.ALL_VIEWER)
+                        .originRequestPolicy(OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER)
                         .build())
                 /**
                  * minimum policy only works with custom certificate
