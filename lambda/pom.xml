@@ -31,7 +31,8 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
-    <!--dependency> AWS SDK dependency -> use on demand
+    <!--dependency>
+    AWS SDK dependency -> use on demand
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>ssm</artifactId>
       <version>2.21.37</version>
@@ -53,7 +54,7 @@
     </dependency-->
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy</artifactId>
+      <artifactId>quarkus-rest</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
