@@ -105,6 +105,63 @@ This template ships with AWS HTTP APIs Gateway. REST APIs Gateway is also suppor
 
 Private APIs are only supported by [REST API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-private-apis.html).
 
+## Deployment Options
+
+### Using InfrastructureBuilder
+
+The `InfrastructureBuilder` provides a fluent API to configure and deploy Lambda functions with different exposure methods:
+
+#### Function URL Deployment
+
+Direct HTTPS endpoint for your Lambda function:
+
+```java
+var app = new App();
+var infrastructureBuilder = new InfrastructureBuilder(app, "my-app")
+    .functionName("MyQuarkusFunction")
+    .ram(1024)
+    .timeout(30)
+    .configuration(Map.of("MESSAGE", "Hello from Lambda"))
+    .functionURLBuilder()
+    .withIAMAuth() // or omit for public access
+    .build();
+```
+
+#### Application Load Balancer (ALB) Deployment
+
+For enterprise-grade traffic distribution:
+
+```java
+// Currently ALB deployment uses direct instantiation:
+new LambdaAlbStack(app, "my-app");
+```
+
+The ALB provides:
+- Health checks
+- Load balancing
+- Stable DNS endpoint
+- HTTP listener on port 80
+
+#### API Gateway Deployment
+
+```java
+var infrastructureBuilder = new InfrastructureBuilder(app, "my-app")
+    .functionName("MyQuarkusFunction")
+    .withOneCPU() // 1700MB RAM
+    .snapStart(true)
+    .apiGatewayBuilder()
+    .httpAPI() // or .restAPI()
+    .build();
+```
+
+### Configuration Options
+
+- `ram()`: Memory allocation (1 CPU = 1700MB)
+- `withOneCPU()`, `withHalfCPU()`, `withTwoCPUs()`: Convenient CPU presets
+- `timeout()`: Function timeout in seconds
+- `snapStart()`: Enable SnapStart for faster cold starts
+- `configuration()`: Environment variables for your Lambda
+
 You can also build AWS Lambda `function.zip` and executable Quarkus JAR by extracting the extension into a Maven profile. Checkout: [https://adambien.blog/roller/abien/entry/hybrid_microprofile_deployments_with_quarkus](https://adambien.blog/roller/abien/entry/hybrid_microprofile_deployments_with_quarkus).
 
 See you at: [airhacks.live](https://airhacks.live)
