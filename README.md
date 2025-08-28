@@ -66,22 +66,35 @@ Function createFunction(String functionName,String functionHandler,
                 .build();
     }
 ```
-You choose between HTTP APIs gateway and REST APIs gateway with the `httpAPIGatewayIntegration` variable:
+You choose the deployment method using the `InfrastructureBuilder`:
 
 ``` java
-public class CDKApp {
-    public static void main(final String[] args) {
+public interface CDKApp {
+    
+    String appName = "quarkus-lambda";
 
-            var app = new App();
-            var appName = "quarkus-apigateway-lambda-cdk";
-            Tags.of(app).add("project", "MicroProfile with Quarkus on AWS Lambda");
-            Tags.of(app).add("environment","development");
-            Tags.of(app).add("application", appName);
+    static void main(String... args) {
 
-            var httpAPIGatewayIntegration = true;
-            new CDKStack(app, appName, true);
-            app.synth();
-        }
+        var app = new App();
+
+        Tags.of(app).add("project", "MicroProfile with Quarkus on AWS Lambda");
+        Tags.of(app).add("environment", "development");
+        Tags.of(app).add("application", appName);
+
+        // Option 1: Function URL (current)
+        var stack = new InfrastructureBuilder(app, appName)
+                .functionName("airhacks_QuarkusOnLambda")
+                .functionURLBuilder()
+                .build();
+        
+        // Option 2: API Gateway
+        // var stack = new InfrastructureBuilder(app, appName)
+        //         .functionName("airhacks_QuarkusOnLambda")
+        //         .apiGatewayBuilder()
+        //         .httpAPI() // or .restAPI()
+        //         .build();
+        
+        app.synth();
     }
 }
 ```
