@@ -31,7 +31,7 @@
         <dependency>
             <groupId>software.constructs</groupId>
             <artifactId>constructs</artifactId>
-            <version>3.4.344</version>
+            <version>10.4.3</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
